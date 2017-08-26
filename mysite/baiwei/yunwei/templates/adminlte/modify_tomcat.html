@@ -1,0 +1,14 @@
+<html>
+    <head>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8">
+    </head>
+    <body>
+        <form method="GET" action="/admin/newaddtomcat">
+	    <input type="hidden" name="ip" value="{{List.ip}}" />
+	    tomcat域名:<input type="text" name="domain" value="{{List.domain}}" /></br>
+	    服  务  名:<input type="text" name="service" value="{{List.service}}" /></br>
+	    <input type="hidden" name="container" value="{{List.container}}" />
+	    <input type="submit" value="提交" />
+	</form>
+    </body>
+</html>

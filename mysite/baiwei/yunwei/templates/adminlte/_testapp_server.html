@@ -1,0 +1,517 @@
+{% extends "adminlte/base.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>AdminLTE 2 | Data Tables</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.6 -->
+  <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="css/ionicons.min.css">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="plugins/datatables/dataTables.bootstrap.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+  <!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+  <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
+
+
+<style>
+.con {
+	height:30px;
+	background:#dd4b39;
+	border-color: #d73925;
+}
+
+.add  {
+    position: fixed;
+    background: rgba(0, 0, 0, 0.58);
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    display:none;
+}
+
+.add > form {
+    background: white;
+    margin: 45px auto;
+    width: 580px;
+    padding: 30px;
+    border-radius: 3px;
+    box-shadow: 0 0 53px rgba(0, 0, 0, 0.15);
+}
+
+.change  {
+    position: fixed;
+    background: rgba(0, 0, 0, 0.58);
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    display:none;
+}
+
+.change > form {
+    background: white;
+    margin: 45px auto;
+    width: 580px;
+    padding: 30px;
+    border-radius: 3px;
+    box-shadow: 0 0 53px rgba(0, 0, 0, 0.15);
+}
+
+
+.del  {
+    position: fixed;
+    background: rgba(0, 0, 0, 0);
+    left: 0;
+    top: 100px;
+    right: 0;
+    bottom: 0;
+    display:none;
+}
+
+.del > form {
+    background: white;
+    margin: 45px auto;
+    width: 580px;
+    padding: 30px;
+    border-radius: 3px;
+    box-shadow: 0 0 53px rgba(0, 0, 0, 0.15);
+}
+
+
+.bad  {
+    position: fixed;
+    background: rgba(0, 0, 0, 0);
+    left: 0;
+    top: 100px;
+    right: 0;
+    bottom: 0;
+}
+
+.bad > form {
+    background: white;
+    margin: 45px auto;
+    width: 580px;
+    padding: 30px;
+    border-radius: 3px;
+    box-shadow: 0 0 53px rgba(0, 0, 0, 0.15);
+    margin-top:300px;
+}
+
+</style>
+
+
+</head>
+<body>
+<div>
+  <!-- Content Wrapper. Contains page content -->
+  <div >
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="box">
+            <div class="box-header">
+              <button  id='tablelist'  style='background-color: #f4f4f4;color: #444;border-color: red;' class="btn btn-success" type='submit'>testapp_server</button>
+		<button  id=add style='height:30px;' class="btn btn-success submit">添加</button>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <table name='testapp_server'  id="example1" class="table table-bordered table-striped">
+			<thead><tr>	<th>主机名</th> <th>节点类型</th>	<th>机柜编号</th>	<th>位置</th>	<th>em1</th>	<th>交换机端口</th>	<th>内存G</th>	<th>VCPU</th>	<th>磁盘</th>	<th>FQDN</th>	<th>SN</th>	<th>管理IP</th>	<th>em2</th>	<th>交换机端口</th>	<th>em3</th>	<th>交换机端口</th>	<th>em4</th>	<th>交换机端口</th>	<th>操作</th>	</tr></thead><tbody><tr>	<th name=achange1>13131CT1F5DDB2 </th>	<th name=achange2>controller</th>	<th name=achange3>YZ-IDC-01-13</th>	<th name=achange4>A1</th>	<th name=achange5>172.25.131.31</th>	<th name=achange6>1-13-D1-15</th>	<th name=achange7>128</th>	<th name=achange8>0</th>	<th name=achange9>0</th>	<th name=achange10>13131CT1F5DDB2.ulecloud.uledns.com</th>	<th name=achange11>1F5DDB2</th>	<th name=achange12>null</th>	<th name=achange13>172.25.143.31</th>	<th name=achange14>1-13-D2-15</th>	<th name=achange15>trunk</th>	<th name=achange16>1-12-D2-1</th>	<th name=achange17>trunk</th>	<th name=achange18>1-12-D2-17</th>	<th><button style='height:30px' id='change1' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='13131CT1F5DDB2 ' class='btn btn-success submit con adel'>删除</button></th></tr><tr>	<th name=achange1>13241CT3VZGT92 </th>	<th name=achange2>ceph</th>	<th name=achange3>YZ-IDC-01-13</th>	<th name=achange4>A2</th>	<th name=achange5>172.25.132.41</th>	<th name=achange6>1-13-D1-14</th>	<th name=achange7>128</th>	<th name=achange8>0</th>	<th name=achange9>19</th>	<th name=achange10>13241CT3VZGT92.ulecloud.uledns.com</th>	<th name=achange11>3VZGT92</th>	<th name=achange12>null</th>	<th name=achange13>null</th>	<th name=achange14>1-13-D2-14</th>	<th name=achange15>172.25.144.41</th>	<th name=achange16>1-12-D2-2</th>	<th name=achange17>172.25.144.41</th>	<th name=achange18>1-12-D2-18</th>	<th><button style='height:30px' id='change2' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='13241CT3VZGT92 ' class='btn btn-success submit con adel'>删除</button></th></tr><tr>	<th name=achange1>13151CT1F7FDB2 </th>	<th name=achange2>compute</th>	<th name=achange3>YZ-IDC-01-13</th>	<th name=achange4>A3</th>	<th name=achange5>172.25.131.51</th>	<th name=achange6>1-13-D1-13</th>	<th name=achange7>128</th>	<th name=achange8>32</th>	<th name=achange9>12</th>	<th name=achange10>13151CT1F7FDB2.ulecloud.uledns.com</th>	<th name=achange11>1F7FDB2</th>	<th name=achange12>null</th>	<th name=achange13>172.25.132.51</th>	<th name=achange14>1-13-D2-13</th>	<th name=achange15>trunk</th>	<th name=achange16>1-12-D2-3</th>	<th name=achange17>trunk</th>	<th name=achange18>1-12-D2-19</th>	<th><button style='height:30px' id='change3' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='13151CT1F7FDB2 ' class='btn btn-success submit con adel'>删除</button></th></tr><tr>	<th name=achange1>13152CT1F6HDB2 </th>	<th name=achange2>compute+ceph</th>	<th name=achange3>YZ-IDC-01-13</th>	<th name=achange4>A4</th>	<th name=achange5>172.25.131.52</th>	<th name=achange6>1-13-D1-12</th>	<th name=achange7>128</th>	<th name=achange8>32</th>	<th name=achange9>12</th>	<th name=achange10>13152CT1F6HDB2.ulecloud.uledns.com</th>	<th name=achange11>1F6HDB2</th>	<th name=achange12>null</th>	<th name=achange13>172.25.132.52</th>	<th name=achange14>1-13-D2-12</th>	<th name=achange15>trunk</th>	<th name=achange16>1-12-D2-4</th>	<th name=achange17>trunk</th>	<th name=achange18>1-12-D2-20</th>	<th><button style='height:30px' id='change4' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='13152CT1F6HDB2 ' class='btn btn-success submit con adel'>删除</button></th></tr><tr>	<th name=achange1>13153CT3W1CT92 </th>	<th name=achange2>compute+ceph</th>	<th name=achange3>YZ-IDC-01-13</th>	<th name=achange4>A5</th>	<th name=achange5>172.25.131.53</th>	<th name=achange6>1-13-D1-11</th>	<th name=achange7>128</th>	<th name=achange8>32</th>	<th name=achange9>12</th>	<th name=achange10>13153CT3W1CT92.ulecloud.uledns.com</th>	<th name=achange11>3W1CT92</th>	<th name=achange12>null</th>	<th name=achange13>172.25.132.53</th>	<th name=achange14>1-13-D2-11</th>	<th name=achange15>trunk</th>	<th name=achange16>1-12-D2-5</th>	<th name=achange17>trunk</th>	<th name=achange18>1-12-D2-21</th>	<th><button style='height:30px' id='change5' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='13153CT3W1CT92 ' class='btn btn-success submit con adel'>删除</button></th></tr><tr>	<th name=achange1>13154CT1F6DDB2 </th>	<th name=achange2>compute</th>	<th name=achange3>YZ-IDC-01-13</th>	<th name=achange4>A6</th>	<th name=achange5>172.25.131.54</th>	<th name=achange6>1-13-D1-10</th>	<th name=achange7>128</th>	<th name=achange8>32</th>	<th name=achange9>12</th>	<th name=achange10>13154CT1F6DDB2.ulecloud.uledns.com</th>	<th name=achange11>1F6DDB2</th>	<th name=achange12>null</th>	<th name=achange13>172.25.132.54</th>	<th name=achange14>1-13-D2-10</th>	<th name=achange15>trunk</th>	<th name=achange16>1-12-D2-6</th>	<th name=achange17>trunk</th>	<th name=achange18>1-12-D2-22</th>	<th><button style='height:30px' id='change6' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='13154CT1F6DDB2 ' class='btn btn-success submit con adel'>删除</button></th></tr><tr>	<th name=achange1>13155CT7YTGT92 </th>	<th name=achange2>compute</th>	<th name=achange3>YZ-IDC-01-13</th>	<th name=achange4>A7</th>	<th name=achange5>172.25.131.55</th>	<th name=achange6>1-13-D1-9</th>	<th name=achange7>128</th>	<th name=achange8>32</th>	<th name=achange9>12</th>	<th name=achange10>13155CT7YTGT92.ulecloud.uledns.com</th>	<th name=achange11>7YTGT92</th>	<th name=achange12>null</th>	<th name=achange13>172.25.132.55</th>	<th name=achange14>1-13-D2-9</th>	<th name=achange15>trunk</th>	<th name=achange16>1-12-D2-7</th>	<th name=achange17>trunk</th>	<th name=achange18>1-12-D2-23</th>	<th><button style='height:30px' id='change7' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='13155CT7YTGT92 ' class='btn btn-success submit con adel'>删除</button></th></tr><tr>	<th name=achange1>13156CT7YVDT92 </th>	<th name=achange2>compute</th>	<th name=achange3>YZ-IDC-01-13</th>	<th name=achange4>A8</th>	<th name=achange5>172.25.131.56</th>	<th name=achange6>1-13-D1-8</th>	<th name=achange7>128</th>	<th name=achange8>32</th>	<th name=achange9>12</th>	<th name=achange10>13156CT7YVDT92.ulecloud.uledns.com</th>	<th name=achange11>7YVDT92</th>	<th name=achange12>null</th>	<th name=achange13>172.25.132.56</th>	<th name=achange14>1-13-D2-8</th>	<th name=achange15>trunk</th>	<th name=achange16>1-12-D2-8</th>	<th name=achange17>trunk</th>	<th name=achange18>1-12-D2-24</th>	<th><button style='height:30px' id='change8' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='13156CT7YVDT92 ' class='btn btn-success submit con adel'>删除</button></th></tr><tr>	<th name=achange1>13157CT1FBDDB2 </th>	<th name=achange2>compute</th>	<th name=achange3>YZ-IDC-01-13</th>	<th name=achange4>A9</th>	<th name=achange5>172.25.131.57</th>	<th name=achange6>1-13-D1-7</th>	<th name=achange7>128</th>	<th name=achange8>32</th>	<th name=achange9>12</th>	<th name=achange10>13157CT1FBDDB2.ulecloud.uledns.com</th>	<th name=achange11>1FBDDB2</th>	<th name=achange12>null</th>	<th name=achange13>172.25.132.57</th>	<th name=achange14>1-13-D2-7</th>	<th name=achange15>trunk</th>	<th name=achange16>1-12-D2-9</th>	<th name=achange17>trunk</th>	<th name=achange18>1-12-D2-25</th>	<th><button style='height:30px' id='change9' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='13157CT1FBDDB2 ' class='btn btn-success submit con adel'>删除</button></th></tr><tr>	<th name=achange1>13158CT1FB8DB2 </th>	<th name=achange2>compute</th>	<th name=achange3>YZ-IDC-01-13</th>	<th name=achange4>A10</th>	<th name=achange5>172.25.131.58</th>	<th name=achange6>1-13-D1-6</th>	<th name=achange7>128</th>	<th name=achange8>32</th>	<th name=achange9>12</th>	<th name=achange10>13158CT1FB8DB2.ulecloud.uledns.com</th>	<th name=achange11>1FB8DB2</th>	<th name=achange12>null</th>	<th name=achange13>172.25.132.58</th>	<th name=achange14>1-13-D2-6</th>	<th name=achange15>trunk</th>	<th name=achange16>1-12-D2-10</th>	<th name=achange17>trunk</th>	<th name=achange18>1-12-D2-26</th>	<th><button style='height:30px' id='change10' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='13158CT1FB8DB2 ' class='btn btn-success submit con adel'>删除</button></th></tr><tr>	<th name=achange1>13159CT1FDHDB2 </th>	<th name=achange2>compute</th>	<th name=achange3>YZ-IDC-01-13</th>	<th name=achange4>A11</th>	<th name=achange5>172.25.131.59</th>	<th name=achange6>1-13-D1-5</th>	<th name=achange7>128</th>	<th name=achange8>32</th>	<th name=achange9>12</th>	<th name=achange10>13159CT1FDHDB2.ulecloud.uledns.com</th>	<th name=achange11>1FDHDB2</th>	<th name=achange12>null</th>	<th name=achange13>172.25.132.59</th>	<th name=achange14>1-13-D2-5</th>	<th name=achange15>trunk</th>	<th name=achange16>1-12-D2-11</th>	<th name=achange17>trunk</th>	<th name=achange18>1-12-D2-27</th>	<th><button style='height:30px' id='change11' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='13159CT1FDHDB2 ' class='btn btn-success submit con adel'>删除</button></th></tr><tr>	<th name=achange1>13160CT3VYDT92 </th>	<th name=achange2>compute</th>	<th name=achange3>YZ-IDC-01-13</th>	<th name=achange4>A12</th>	<th name=achange5>172.25.131.60</th>	<th name=achange6>1-13-D1-4</th>	<th name=achange7>128</th>	<th name=achange8>32</th>	<th name=achange9>12</th>	<th name=achange10>13160CT3VYDT92.ulecloud.uledns.com</th>	<th name=achange11>3VYDT92</th>	<th name=achange12>null</th>	<th name=achange13>172.25.132.60</th>	<th name=achange14>1-13-D2-4</th>	<th name=achange15>trunk</th>	<th name=achange16>1-12-D2-12</th>	<th name=achange17>trunk</th>	<th name=achange18>1-12-D2-28</th>	<th><button style='height:30px' id='change12' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='13160CT3VYDT92 ' class='btn btn-success submit con adel'>删除</button></th></tr><tr>	<th name=achange1>13161CT3VXFT92 </th>	<th name=achange2>compute</th>	<th name=achange3>YZ-IDC-01-13</th>	<th name=achange4>A13</th>	<th name=achange5>172.25.131.61</th>	<th name=achange6>1-13-D1-3</th>	<th name=achange7>128</th>	<th name=achange8>32</th>	<th name=achange9>12</th>	<th name=achange10>13161CT3VXFT92.ulecloud.uledns.com</th>	<th name=achange11>3VXFT92</th>	<th name=achange12>null</th>	<th name=achange13>172.25.132.61</th>	<th name=achange14>1-13-D2-3</th>	<th name=achange15>trunk</th>	<th name=achange16>1-12-D2-13</th>	<th name=achange17>trunk</th>	<th name=achange18>1-12-D2-29</th>	<th><button style='height:30px' id='change13' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='13161CT3VXFT92 ' class='btn btn-success submit con adel'>删除</button></th></tr><tr>	<th name=achange1>13162CT512FT92 </th>	<th name=achange2>compute</th>	<th name=achange3>YZ-IDC-01-13</th>	<th name=achange4>A14</th>	<th name=achange5>172.25.131.62</th>	<th name=achange6>1-13-D1-2</th>	<th name=achange7>128</th>	<th name=achange8>32</th>	<th name=achange9>12</th>	<th name=achange10>13162CT512FT92.ulecloud.uledns.com</th>	<th name=achange11>512FT92</th>	<th name=achange12>null</th>	<th name=achange13>172.25.132.62</th>	<th name=achange14>1-13-D2-2</th>	<th name=achange15>trunk</th>	<th name=achange16>1-12-D2-14</th>	<th name=achange17>trunk</th>	<th name=achange18>1-12-D2-30</th>	<th><button style='height:30px' id='change14' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='13162CT512FT92 ' class='btn btn-success submit con adel'>删除</button></th></tr><tr>	<th name=achange1>13163CT1F9CDB2 </th>	<th name=achange2>compute</th>	<th name=achange3>YZ-IDC-01-13</th>	<th name=achange4>A15</th>	<th name=achange5>172.25.131.63</th>	<th name=achange6>1-13-D1-1</th>	<th name=achange7>128</th>	<th name=achange8>32</th>	<th name=achange9>12</th>	<th name=achange10>13163CT1F9CDB2.ulecloud.uledns.com</th>	<th name=achange11>1F9CDB2</th>	<th name=achange12>null</th>	<th name=achange13>172.25.132.63</th>	<th name=achange14>1-13-D2-1</th>	<th name=achange15>trunk</th>	<th name=achange16>1-12-D2-15</th>	<th name=achange17>trunk</th>	<th name=achange18>1-12-D2-31</th>	<th><button style='height:30px' id='change15' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='13163CT1F9CDB2 ' class='btn btn-success submit con adel'>删除</button></th></tr><tr>	<th name=achange1>13132CT1FBCDB2 </th>	<th name=achange2>controller</th>	<th name=achange3>YZ-IDC-01-12</th>	<th name=achange4>B1</th>	<th name=achange5>172.25.131.32</th>	<th name=achange6>1-13-D1-30</th>	<th name=achange7>128</th>	<th name=achange8>0</th>	<th name=achange9>0</th>	<th name=achange10>13132CT1FBCDB2.ulecloud.uledns.com</th>	<th name=achange11>1FBCDB2</th>	<th name=achange12>null</th>	<th name=achange13>172.25.143.32</th>	<th name=achange14>1-13-D2-30</th>	<th name=achange15>trunk</th>	<th name=achange16>1-12-D1-16</th>	<th name=achange17>trunk</th>	<th name=achange18>1-12-D1-32</th>	<th><button style='height:30px' id='change16' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='13132CT1FBCDB2 ' class='btn btn-success submit con adel'>删除</button></th></tr><tr>	<th name=achange1>13242CT7YSDT92 </th>	<th name=achange2>ceph</th>	<th name=achange3>YZ-IDC-01-12</th>	<th name=achange4>B2</th>	<th name=achange5>172.25.132.42</th>	<th name=achange6>1-13-D1-29</th>	<th name=achange7>128</th>	<th name=achange8>0</th>	<th name=achange9>19</th>	<th name=achange10>13242CT7YSDT92.ulecloud.uledns.com</th>	<th name=achange11>7YSDT92</th>	<th name=achange12>null</th>	<th name=achange13>null</th>	<th name=achange14>1-13-D2-29</th>	<th name=achange15>172.25.144.42</th>	<th name=achange16>1-12-D1-17</th>	<th name=achange17>172.25.144.42</th>	<th name=achange18>1-12-D1-33</th>	<th><button style='height:30px' id='change17' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='13242CT7YSDT92 ' class='btn btn-success submit con adel'>删除</button></th></tr><tr>	<th name=achange1>13243CT1F5HDB2 </th>	<th name=achange2>ceph</th>	<th name=achange3>YZ-IDC-01-12</th>	<th name=achange4>B3</th>	<th name=achange5>172.25.132.43</th>	<th name=achange6>1-13-D1-28</th>	<th name=achange7>128</th>	<th name=achange8>0</th>	<th name=achange9>19</th>	<th name=achange10>13243CT1F5HDB2.ulecloud.uledns.com</th>	<th name=achange11>1F5HDB2</th>	<th name=achange12>null</th>	<th name=achange13>null</th>	<th name=achange14>1-13-D2-28</th>	<th name=achange15>172.25.144.43</th>	<th name=achange16>1-12-D1-18</th>	<th name=achange17>172.25.144.43</th>	<th name=achange18>1-12-D1-34</th>	<th><button style='height:30px' id='change18' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='13243CT1F5HDB2 ' class='btn btn-success submit con adel'>删除</button></th></tr><tr>	<th name=achange1>13164CT1F4HDB2 </th>	<th name=achange2>compute+ceph</th>	<th name=achange3>YZ-IDC-01-12</th>	<th name=achange4>B4</th>	<th name=achange5>172.25.131.64</th>	<th name=achange6>1-13-D1-27</th>	<th name=achange7>128</th>	<th name=achange8>32</th>	<th name=achange9>12</th>	<th name=achange10>13164CT1F4HDB2.ulecloud.uledns.com</th>	<th name=achange11>1F4HDB2</th>	<th name=achange12>null</th>	<th name=achange13>172.25.132.64</th>	<th name=achange14>1-13-D2-27</th>	<th name=achange15>trunk</th>	<th name=achange16>1-12-D1-19</th>	<th name=achange17>trunk</th>	<th name=achange18>1-12-D1-35</th>	<th><button style='height:30px' id='change19' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='13164CT1F4HDB2 ' class='btn btn-success submit con adel'>删除</button></th></tr><tr>	<th name=achange1>13165CT1F3FDB2 </th>	<th name=achange2>compute+ceph</th>	<th name=achange3>YZ-IDC-01-12</th>	<th name=achange4>B5</th>	<th name=achange5>172.25.131.65</th>	<th name=achange6>1-13-D1-26</th>	<th name=achange7>128</th>	<th name=achange8>32</th>	<th name=achange9>12</th>	<th name=achange10>13165CT1F3FDB2.ulecloud.uledns.com</th>	<th name=achange11>1F3FDB2</th>	<th name=achange12>null</th>	<th name=achange13>172.25.132.65</th>	<th name=achange14>1-13-D2-26</th>	<th name=achange15>trunk</th>	<th name=achange16>1-12-D1-20</th>	<th name=achange17>trunk</th>	<th name=achange18>1-12-D1-36</th>	<th><button style='height:30px' id='change20' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='13165CT1F3FDB2 ' class='btn btn-success submit con adel'>删除</button></th></tr><tr>	<th name=achange1>13166CT1F69DB2 </th>	<th name=achange2>compute</th>	<th name=achange3>YZ-IDC-01-12</th>	<th name=achange4>B6</th>	<th name=achange5>172.25.131.66</th>	<th name=achange6>1-13-D1-25</th>	<th name=achange7>128</th>	<th name=achange8>32</th>	<th name=achange9>12</th>	<th name=achange10>13166CT1F69DB2.ulecloud.uledns.com</th>	<th name=achange11>1F69DB2</th>	<th name=achange12>null</th>	<th name=achange13>172.25.132.66</th>	<th name=achange14>1-13-D2-25</th>	<th name=achange15>trunk</th>	<th name=achange16>1-12-D1-21</th>	<th name=achange17>trunk</th>	<th name=achange18>1-12-D1-37</th>	<th><button style='height:30px' id='change21' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='13166CT1F69DB2 ' class='btn btn-success submit con adel'>删除</button></th></tr><tr>	<th name=achange1>13167CT1F87DB2 </th>	<th name=achange2>compute</th>	<th name=achange3>YZ-IDC-01-12</th>	<th name=achange4>B7</th>	<th name=achange5>172.25.131.67</th>	<th name=achange6>1-13-D1-24</th>	<th name=achange7>128</th>	<th name=achange8>32</th>	<th name=achange9>12</th>	<th name=achange10>13167CT1F87DB2.ulecloud.uledns.com</th>	<th name=achange11>1F87DB2</th>	<th name=achange12>null</th>	<th name=achange13>172.25.132.67</th>	<th name=achange14>1-13-D2-24</th>	<th name=achange15>trunk</th>	<th name=achange16>1-12-D1-22</th>	<th name=achange17>trunk</th>	<th name=achange18>1-12-D1-38</th>	<th><button style='height:30px' id='change22' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='13167CT1F87DB2 ' class='btn btn-success submit con adel'>删除</button></th></tr><tr>	<th name=achange1>13168CT1F3HDB2 </th>	<th name=achange2>compute</th>	<th name=achange3>YZ-IDC-01-12</th>	<th name=achange4>B8</th>	<th name=achange5>172.25.131.68</th>	<th name=achange6>1-13-D1-23</th>	<th name=achange7>128</th>	<th name=achange8>32</th>	<th name=achange9>12</th>	<th name=achange10>13168CT1F3HDB2.ulecloud.uledns.com</th>	<th name=achange11>1F3HDB2</th>	<th name=achange12>null</th>	<th name=achange13>172.25.132.68</th>	<th name=achange14>1-13-D2-23</th>	<th name=achange15>trunk</th>	<th name=achange16>1-12-D1-23</th>	<th name=achange17>trunk</th>	<th name=achange18>1-12-D1-39</th>	<th><button style='height:30px' id='change23' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='13168CT1F3HDB2 ' class='btn btn-success submit con adel'>删除</button></th></tr><tr>	<th name=achange1>13169CT1FCCDB2 </th>	<th name=achange2>compute</th>	<th name=achange3>YZ-IDC-01-12</th>	<th name=achange4>B9</th>	<th name=achange5>172.25.131.69</th>	<th name=achange6>1-13-D1-22</th>	<th name=achange7>128</th>	<th name=achange8>32</th>	<th name=achange9>12</th>	<th name=achange10>13169CT1FCCDB2.ulecloud.uledns.com</th>	<th name=achange11>1FCCDB2</th>	<th name=achange12>null</th>	<th name=achange13>172.25.132.69</th>	<th name=achange14>1-13-D2-22</th>	<th name=achange15>trunk</th>	<th name=achange16>1-12-D1-24</th>	<th name=achange17>trunk</th>	<th name=achange18>1-12-D1-40</th>	<th><button style='height:30px' id='change24' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='13169CT1FCCDB2 ' class='btn btn-success submit con adel'>删除</button></th></tr><tr>	<th name=achange1>13170CT1F4JDB2 </th>	<th name=achange2>compute</th>	<th name=achange3>YZ-IDC-01-12</th>	<th name=achange4>B10</th>	<th name=achange5>172.25.131.70</th>	<th name=achange6>1-13-D1-21</th>	<th name=achange7>128</th>	<th name=achange8>32</th>	<th name=achange9>12</th>	<th name=achange10>13170CT1F4JDB2.ulecloud.uledns.com</th>	<th name=achange11>1F4JDB2</th>	<th name=achange12>null</th>	<th name=achange13>172.25.132.70</th>	<th name=achange14>1-13-D2-21</th>	<th name=achange15>trunk</th>	<th name=achange16>1-12-D1-25</th>	<th name=achange17>trunk</th>	<th name=achange18>1-12-D1-41</th>	<th><button style='height:30px' id='change25' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='13170CT1F4JDB2 ' class='btn btn-success submit con adel'>删除</button></th></tr><tr>	<th name=achange1>13171CT1F5GDB2 </th>	<th name=achange2>compute</th>	<th name=achange3>YZ-IDC-01-12</th>	<th name=achange4>B11</th>	<th name=achange5>172.25.131.71</th>	<th name=achange6>1-13-D1-20</th>	<th name=achange7>128</th>	<th name=achange8>32</th>	<th name=achange9>12</th>	<th name=achange10>13171CT1F5GDB2.ulecloud.uledns.com</th>	<th name=achange11>1F5GDB2</th>	<th name=achange12>null</th>	<th name=achange13>172.25.132.71</th>	<th name=achange14>1-13-D2-20</th>	<th name=achange15>trunk</th>	<th name=achange16>1-12-D1-26</th>	<th name=achange17>trunk</th>	<th name=achange18>1-12-D1-42</th>	<th><button style='height:30px' id='change26' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='13171CT1F5GDB2 ' class='btn btn-success submit con adel'>删除</button></th></tr><tr>	<th name=achange1>13172CT1F4FDB2 </th>	<th name=achange2>compute</th>	<th name=achange3>YZ-IDC-01-12</th>	<th name=achange4>B12</th>	<th name=achange5>172.25.131.72</th>	<th name=achange6>1-13-D1-19</th>	<th name=achange7>128</th>	<th name=achange8>32</th>	<th name=achange9>12</th>	<th name=achange10>13172CT1F4FDB2.ulecloud.uledns.com</th>	<th name=achange11>1F4FDB2</th>	<th name=achange12>null</th>	<th name=achange13>172.25.132.72</th>	<th name=achange14>1-13-D2-19</th>	<th name=achange15>trunk</th>	<th name=achange16>1-12-D1-27</th>	<th name=achange17>trunk</th>	<th name=achange18>1-12-D1-43</th>	<th><button style='height:30px' id='change27' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='13172CT1F4FDB2 ' class='btn btn-success submit con adel'>删除</button></th></tr><tr>	<th name=achange1>13173CT1F3GDB2 </th>	<th name=achange2>compute</th>	<th name=achange3>YZ-IDC-01-12</th>	<th name=achange4>B13</th>	<th name=achange5>172.25.131.73</th>	<th name=achange6>1-13-D1-18</th>	<th name=achange7>128</th>	<th name=achange8>32</th>	<th name=achange9>12</th>	<th name=achange10>13173CT1F3GDB2.ulecloud.uledns.com</th>	<th name=achange11>1F3GDB2</th>	<th name=achange12>null</th>	<th name=achange13>172.25.132.73</th>	<th name=achange14>1-13-D2-18</th>	<th name=achange15>trunk</th>	<th name=achange16>1-12-D1-28</th>	<th name=achange17>trunk</th>	<th name=achange18>1-12-D1-44</th>	<th><button style='height:30px' id='change28' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='13173CT1F3GDB2 ' class='btn btn-success submit con adel'>删除</button></th></tr><tr>	<th name=achange1>13174CT1F5BDB2 </th>	<th name=achange2>compute</th>	<th name=achange3>YZ-IDC-01-12</th>	<th name=achange4>B14</th>	<th name=achange5>172.25.131.74</th>	<th name=achange6>1-13-D1-17</th>	<th name=achange7>128</th>	<th name=achange8>32</th>	<th name=achange9>12</th>	<th name=achange10>13174CT1F5BDB2.ulecloud.uledns.com</th>	<th name=achange11>1F5BDB2</th>	<th name=achange12>null</th>	<th name=achange13>172.25.132.74</th>	<th name=achange14>1-13-D2-17</th>	<th name=achange15>trunk</th>	<th name=achange16>1-12-D1-29</th>	<th name=achange17>trunk</th>	<th name=achange18>1-12-D1-45</th>	<th><button style='height:30px' id='change29' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='13174CT1F5BDB2 ' class='btn btn-success submit con adel'>删除</button></th></tr><tr>	<th name=achange1>13175CT1F4CDB2 </th>	<th name=achange2>compute</th>	<th name=achange3>YZ-IDC-01-12</th>	<th name=achange4>B15</th>	<th name=achange5>172.25.131.75</th>	<th name=achange6>1-13-D1-16</th>	<th name=achange7>128</th>	<th name=achange8>32</th>	<th name=achange9>12</th>	<th name=achange10>13175CT1F4CDB2.ulecloud.uledns.com</th>	<th name=achange11>1F4CDB2</th>	<th name=achange12>null</th>	<th name=achange13>172.25.132.75</th>	<th name=achange14>1-13-D2-16</th>	<th name=achange15>trunk</th>	<th name=achange16>1-12-D1-30</th>	<th name=achange17>trunk</th>	<th name=achange18>1-12-D1-46</th>	<th><button style='height:30px' id='change30' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='13175CT1F4CDB2 ' class='btn btn-success submit con adel'>删除</button></th></tr><tr>	<th name=achange1>13181CT3WHGT92</th>	<th name=achange2>compute</th>	<th name=achange3>null</th>	<th name=achange4>null</th>	<th name=achange5>172.25.131.81</th>	<th name=achange6>null</th>	<th name=achange7>128</th>	<th name=achange8>32</th>	<th name=achange9>12</th>	<th name=achange10>13181CT3WHGT92.ulecloud.uledns.com</th>	<th name=achange11>3WHGT92</th>	<th name=achange12>null</th>	<th name=achange13>172.25.132.81</th>	<th name=achange14>null</th>	<th name=achange15>trunk</th>	<th name=achange16>null</th>	<th name=achange17>trunk</th>	<th name=achange18>null</th>	<th><button style='height:30px' id='change31' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='13181CT3WHGT92' class='btn btn-success submit con adel'>删除</button></th></tr><tr>	<th name=achange1>13182CT3WH9T92</th>	<th name=achange2>compute</th>	<th name=achange3>null</th>	<th name=achange4>null</th>	<th name=achange5>172.25.131.82</th>	<th name=achange6>null</th>	<th name=achange7>128</th>	<th name=achange8>32</th>	<th name=achange9>12</th>	<th name=achange10>13182CT3WH9T92.ulecloud.uledns.com</th>	<th name=achange11>3WH9T92</th>	<th name=achange12>null</th>	<th name=achange13>172.25.132.82</th>	<th name=achange14>null</th>	<th name=achange15>trunk</th>	<th name=achange16>null</th>	<th name=achange17>trunk</th>	<th name=achange18>null</th>	<th><button style='height:30px' id='change32' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='13182CT3WH9T92' class='btn btn-success submit con adel'>删除</button></th></tr><tbody><tfoot><tr>	<th>主机名</th> <th>节点类型</th>	<th>机柜编号</th>	<th>位置</th>	<th>em1</th>	<th>交换机端口</th>	<th>内存G</th>	<th>VCPU</th>	<th>磁盘</th>	<th>FQDN</th>	<th>SN</th>	<th>管理IP</th>	<th>em2</th>	<th>交换机端口</th>	<th>em3</th>	<th>交换机端口</th>	<th>em4</th>	<th>交换机端口</th>	<th>操作</th>	</tr></tfoot>
+              </table>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Create the tabs -->
+    <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+      <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
+      <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
+    </ul>
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <!-- Home tab content -->
+      <div class="tab-pane" id="control-sidebar-home-tab">
+        <h3 class="control-sidebar-heading">Recent Activity</h3>
+        <ul class="control-sidebar-menu">
+          <li>
+            <a href="javascript:void(0)">
+              <i class="menu-icon fa fa-birthday-cake bg-red"></i>
+
+              <div class="menu-info">
+                <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
+
+                <p>Will be 23 on April 24th</p>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <i class="menu-icon fa fa-user bg-yellow"></i>
+
+              <div class="menu-info">
+                <h4 class="control-sidebar-subheading">Frodo Updated His Profile</h4>
+
+                <p>New phone +1(800)555-1234</p>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <i class="menu-icon fa fa-envelope-o bg-light-blue"></i>
+
+              <div class="menu-info">
+                <h4 class="control-sidebar-subheading">Nora Joined Mailing List</h4>
+
+                <p>nora@example.com</p>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <i class="menu-icon fa fa-file-code-o bg-green"></i>
+
+              <div class="menu-info">
+                <h4 class="control-sidebar-subheading">Cron Job 254 Executed</h4>
+
+                <p>Execution time 5 seconds</p>
+              </div>
+            </a>
+          </li>
+        </ul>
+        <!-- /.control-sidebar-menu -->
+
+        <h3 class="control-sidebar-heading">Tasks Progress</h3>
+        <ul class="control-sidebar-menu">
+          <li>
+            <a href="javascript:void(0)">
+              <h4 class="control-sidebar-subheading">
+                Custom Template Design
+                <span class="label label-danger pull-right">70%</span>
+              </h4>
+
+              <div class="progress progress-xxs">
+                <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <h4 class="control-sidebar-subheading">
+                Update Resume
+                <span class="label label-success pull-right">95%</span>
+              </h4>
+
+              <div class="progress progress-xxs">
+                <div class="progress-bar progress-bar-success" style="width: 95%"></div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <h4 class="control-sidebar-subheading">
+                Laravel Integration
+                <span class="label label-warning pull-right">50%</span>
+              </h4>
+
+              <div class="progress progress-xxs">
+                <div class="progress-bar progress-bar-warning" style="width: 50%"></div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <h4 class="control-sidebar-subheading">
+                Back End Framework
+                <span class="label label-primary pull-right">68%</span>
+              </h4>
+
+              <div class="progress progress-xxs">
+                <div class="progress-bar progress-bar-primary" style="width: 68%"></div>
+              </div>
+            </a>
+          </li>
+        </ul>
+        <!-- /.control-sidebar-menu -->
+
+      </div>
+      <!-- /.tab-pane -->
+      <!-- Stats tab content -->
+      <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
+      <!-- /.tab-pane -->
+      <!-- Settings tab content -->
+      <div class="tab-pane" id="control-sidebar-settings-tab">
+        <form method="post">
+          <h3 class="control-sidebar-heading">General Settings</h3>
+
+          <div class="form-group">
+            <label class="control-sidebar-subheading">
+              Report panel usage
+              <input type="checkbox" class="pull-right" checked>
+            </label>
+
+            <p>
+              Some information about this general settings option
+            </p>
+          </div>
+          <!-- /.form-group -->
+
+          <div class="form-group">
+            <label class="control-sidebar-subheading">
+              Allow mail redirect
+              <input type="checkbox" class="pull-right" checked>
+            </label>
+
+            <p>
+              Other sets of options are available
+            </p>
+          </div>
+          <!-- /.form-group -->
+
+          <div class="form-group">
+            <label class="control-sidebar-subheading">
+              Expose author name in posts
+              <input type="checkbox" class="pull-right" checked>
+            </label>
+
+            <p>
+              Allow the user to show his name in blog posts
+            </p>
+          </div>
+          <!-- /.form-group -->
+
+          <h3 class="control-sidebar-heading">Chat Settings</h3>
+
+          <div class="form-group">
+            <label class="control-sidebar-subheading">
+              Show me as online
+              <input type="checkbox" class="pull-right" checked>
+            </label>
+          </div>
+          <!-- /.form-group -->
+
+          <div class="form-group">
+            <label class="control-sidebar-subheading">
+              Turn off notifications
+              <input type="checkbox" class="pull-right">
+            </label>
+          </div>
+          <!-- /.form-group -->
+
+          <div class="form-group">
+            <label class="control-sidebar-subheading">
+              Delete chat history
+              <a href="javascript:void(0)" class="text-red pull-right"><i class="fa fa-trash-o"></i></a>
+            </label>
+          </div>
+          <!-- /.form-group -->
+        </form>
+      </div>
+      <!-- /.tab-pane -->
+    </div>
+  </aside>
+  <!-- /.control-sidebar -->
+  <!-- Add the sidebar's background. This div must be placed
+       immediately after the control sidebar -->
+  <div class="control-sidebar-bg"></div>
+
+
+
+
+        <script src="jquery.js"></script>
+
+                        <div class="add">
+                            <form class="form-horizontal" method='get' action="/admin/tableAdd_testapp_server">
+                                <fieldset>
+                                        <div class="box-body">
+
+
+						<div class='form-group'><label class='col-md-4 control-label' for='name.first' >主机名</label><div class='col-md-6'><input id='name.first' name='add1' type='text' placeholder='' class='form-control input-md' required='' value=''></div></div><div class='form-group'><label class='col-md-4 control-label' for='name.first' >节点类型</label><div class='col-md-6'><input id='name.first' name='add2' type='text' placeholder='' class='form-control input-md' required='' value=''></div></div><div class='form-group'><label class='col-md-4 control-label' for='name.first' >机柜编号</label><div class='col-md-6'><input id='name.first' name='add3' type='text' placeholder='' class='form-control input-md' required='' value=''></div></div><div class='form-group'><label class='col-md-4 control-label' for='name.first' >位置</label><div class='col-md-6'><input id='name.first' name='add4' type='text' placeholder='' class='form-control input-md' required='' value=''></div></div><div class='form-group'><label class='col-md-4 control-label' for='name.first' >em1</label><div class='col-md-6'><input id='name.first' name='add5' type='text' placeholder='' class='form-control input-md' required='' value=''></div></div><div class='form-group'><label class='col-md-4 control-label' for='name.first' >交换机端口</label><div class='col-md-6'><input id='name.first' name='add6' type='text' placeholder='' class='form-control input-md' required='' value=''></div></div><div class='form-group'><label class='col-md-4 control-label' for='name.first' >内存G</label><div class='col-md-6'><input id='name.first' name='add7' type='text' placeholder='' class='form-control input-md' required='' value=''></div></div><div class='form-group'><label class='col-md-4 control-label' for='name.first' >VCPU</label><div class='col-md-6'><input id='name.first' name='add8' type='text' placeholder='' class='form-control input-md' required='' value=''></div></div><div class='form-group'><label class='col-md-4 control-label' for='name.first' >磁盘</label><div class='col-md-6'><input id='name.first' name='add9' type='text' placeholder='' class='form-control input-md' required='' value=''></div></div><div class='form-group'><label class='col-md-4 control-label' for='name.first' >FQDN</label><div class='col-md-6'><input id='name.first' name='add10' type='text' placeholder='' class='form-control input-md' required='' value=''></div></div><div class='form-group'><label class='col-md-4 control-label' for='name.first' >SN</label><div class='col-md-6'><input id='name.first' name='add11' type='text' placeholder='' class='form-control input-md' required='' value=''></div></div><div class='form-group'><label class='col-md-4 control-label' for='name.first' >管理IP</label><div class='col-md-6'><input id='name.first' name='add12' type='text' placeholder='' class='form-control input-md' required='' value=''></div></div><div class='form-group'><label class='col-md-4 control-label' for='name.first' >em2</label><div class='col-md-6'><input id='name.first' name='add13' type='text' placeholder='' class='form-control input-md' required='' value=''></div></div><div class='form-group'><label class='col-md-4 control-label' for='name.first' >交换机端口</label><div class='col-md-6'><input id='name.first' name='add14' type='text' placeholder='' class='form-control input-md' required='' value=''></div></div><div class='form-group'><label class='col-md-4 control-label' for='name.first' >em3</label><div class='col-md-6'><input id='name.first' name='add15' type='text' placeholder='' class='form-control input-md' required='' value=''></div></div><div class='form-group'><label class='col-md-4 control-label' for='name.first' >交换机端口</label><div class='col-md-6'><input id='name.first' name='add16' type='text' placeholder='' class='form-control input-md' required='' value=''></div></div><div class='form-group'><label class='col-md-4 control-label' for='name.first' >em4</label><div class='col-md-6'><input id='name.first' name='add17' type='text' placeholder='' class='form-control input-md' required='' value=''></div></div><div class='form-group'><label class='col-md-4 control-label' for='name.first' >交换机端口</label><div class='col-md-6'><input id='name.first' name='add18' type='text' placeholder='' class='form-control input-md' required='' value=''></div></div>
+					
+                                        </div>
+					<input style='display:none' name=File  value='testapp_server'></input>
+                                <!-- Button (Double) -->
+
+					<div class="form-group">
+					<label class="col-md-4 control-label" for="cancel"></label>
+                                  		<div  class="col-md-6">
+                                  		  <button  id="canceladd" style='background-color: #f4f4f4;color: #444;border-color: #f4f4f4;' class="btn btn-success cancel">cancel</button>
+                                  		  <button  id="addsubmit" type='submit' class="btn btn-success submit">commit</button>
+                                  		</div>
+                                  	</div>
+                                </fieldset>
+                            </form>
+                        </div>
+
+
+                        <div class='change'>
+                            <form class='form-horizontal' method='get' action="/admin/editTable_testapp_server">
+                                <fieldset>
+                                     <div class='box-box'>
+						<div class='form-group'><label class='col-md-4 control-label' for='name.first' >主机名</label><div class='col-md-6'><input id='name.first' name='add1' type='text' placeholder='' class='form-control input-md' required='' value=''></div></div><div class='form-group'><label class='col-md-4 control-label' for='name.first' >节点类型</label><div class='col-md-6'><input id='name.first' name='add2' type='text' placeholder='' class='form-control input-md' required='' value=''></div></div><div class='form-group'><label class='col-md-4 control-label' for='name.first' >机柜编号</label><div class='col-md-6'><input id='name.first' name='add3' type='text' placeholder='' class='form-control input-md' required='' value=''></div></div><div class='form-group'><label class='col-md-4 control-label' for='name.first' >位置</label><div class='col-md-6'><input id='name.first' name='add4' type='text' placeholder='' class='form-control input-md' required='' value=''></div></div><div class='form-group'><label class='col-md-4 control-label' for='name.first' >em1</label><div class='col-md-6'><input id='name.first' name='add5' type='text' placeholder='' class='form-control input-md' required='' value=''></div></div><div class='form-group'><label class='col-md-4 control-label' for='name.first' >交换机端口</label><div class='col-md-6'><input id='name.first' name='add6' type='text' placeholder='' class='form-control input-md' required='' value=''></div></div><div class='form-group'><label class='col-md-4 control-label' for='name.first' >内存G</label><div class='col-md-6'><input id='name.first' name='add7' type='text' placeholder='' class='form-control input-md' required='' value=''></div></div><div class='form-group'><label class='col-md-4 control-label' for='name.first' >VCPU</label><div class='col-md-6'><input id='name.first' name='add8' type='text' placeholder='' class='form-control input-md' required='' value=''></div></div><div class='form-group'><label class='col-md-4 control-label' for='name.first' >磁盘</label><div class='col-md-6'><input id='name.first' name='add9' type='text' placeholder='' class='form-control input-md' required='' value=''></div></div><div class='form-group'><label class='col-md-4 control-label' for='name.first' >FQDN</label><div class='col-md-6'><input id='name.first' name='add10' type='text' placeholder='' class='form-control input-md' required='' value=''></div></div><div class='form-group'><label class='col-md-4 control-label' for='name.first' >SN</label><div class='col-md-6'><input id='name.first' name='add11' type='text' placeholder='' class='form-control input-md' required='' value=''></div></div><div class='form-group'><label class='col-md-4 control-label' for='name.first' >管理IP</label><div class='col-md-6'><input id='name.first' name='add12' type='text' placeholder='' class='form-control input-md' required='' value=''></div></div><div class='form-group'><label class='col-md-4 control-label' for='name.first' >em2</label><div class='col-md-6'><input id='name.first' name='add13' type='text' placeholder='' class='form-control input-md' required='' value=''></div></div><div class='form-group'><label class='col-md-4 control-label' for='name.first' >交换机端口</label><div class='col-md-6'><input id='name.first' name='add14' type='text' placeholder='' class='form-control input-md' required='' value=''></div></div><div class='form-group'><label class='col-md-4 control-label' for='name.first' >em3</label><div class='col-md-6'><input id='name.first' name='add15' type='text' placeholder='' class='form-control input-md' required='' value=''></div></div><div class='form-group'><label class='col-md-4 control-label' for='name.first' >交换机端口</label><div class='col-md-6'><input id='name.first' name='add16' type='text' placeholder='' class='form-control input-md' required='' value=''></div></div><div class='form-group'><label class='col-md-4 control-label' for='name.first' >em4</label><div class='col-md-6'><input id='name.first' name='add17' type='text' placeholder='' class='form-control input-md' required='' value=''></div></div><div class='form-group'><label class='col-md-4 control-label' for='name.first' >交换机端口</label><div class='col-md-6'><input id='name.first' name='add18' type='text' placeholder='' class='form-control input-md' required='' value=''></div></div>
+                                  	</div>
+					<input style='display:none' name=File  value='testapp_server'></input>
+                                        <div class="form-group">
+                                        <label class="col-md-4 control-label" for="cancel"></label>
+                                                <div  class="col-md-6">
+                                                  <button  id="cancelchange" style='background-color: #f4f4f4;color: #444;border-color: #f4f4f4;' class="btn btn-success cancel" onclick="return false">cancel</button>
+                                                  <button  type='submit' id="changesubmit" class="btn btn-success">commit</button>
+                                                </div>
+                                        </div>
+                                     </div>
+                                </fieldset>
+                            </form>
+                        </div>
+
+
+
+
+                        <div class="del">
+                            <form class="form-horizontal" >
+                                <fieldset>
+                                	<div class="form-group">
+                                	  <div class="col-md-6">
+                                	  <input style='display:none' id="name.last"  type="text"  class="form-control input-md" required="" value="">
+                                	  </div>
+                                	</div>
+                                  <div class="box-body">
+					<legend align="center">确认是否删除?</legend>
+					<div class="form-group">
+                                        	<label class="col-md-4 control-label" for="cancel"></label>
+                                  		<div  class="col-md-6">
+                                    			<button  id="canceldel" style='background-color: #f4f4f4;color: #444;border-color: #f4f4f4;' class="btn btn-success cancel" >cancel</button>
+                                    			<button  id="delsubmit" class="btn btn-success" >commit</button>
+                                  		</div>
+                                  	</div>
+                                  </div>
+                                </fieldset>
+                            </form>
+                        </div>
+
+                        <div  style='display:{{STATUS}}' class="bad">
+                            <form class="form-horizontal" >
+                                <fieldset>
+                                	<div class="form-group">
+                                	  <div class="col-md-6">
+                                	  <input style='display:none' id="name.last"  type="text"  class="form-control input-md" required="" value="">
+                                	  </div>
+                                	</div>
+                                  <div class="box-body">
+					<legend align="center">信息已存在</legend>
+					<div class="form-group">
+                                        	<label class="col-md-4 control-label" for="cancel"></label>
+                                  		<div style="margin-left:30px" class="col-md-6">
+                                    			<button  id="cancelbad" style='background-color: #f4f4f4;color: #444;border-color: #f4f4f4;' class="btn btn-success cancel" >cancel</button>
+                                  		</div>
+                                  	</div>
+                                  </div>
+                                </fieldset>
+                            </form>
+                        </div>
+
+
+</div>
+<!-- ./wrapper -->
+
+
+{%block jsdeploylist%}
+<!-- Bootstrap 3.3.6 -->
+<!-- DataTables -->
+<script src="plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="plugins/datatables/dataTables.bootstrap.min.js"></script>
+<!-- SlimScroll -->
+<script src="plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<!-- FastClick -->
+<script src="plugins/fastclick/fastclick.js"></script>
+<!-- AdminLTE App -->
+<!-- page script -->
+{%endblock%}
+<!-- page script -->
+<script>
+  $(function () {
+    $("#example1").DataTable();
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false
+    });
+  });
+
+  $('#add').click(function(){
+              $('.add').toggleClass('show');
+  })
+
+  $('#tablelist').click(function(){
+		window.location.href="/admin/Table";
+  })
+  $('#canceladd').click(function(){
+              $('.add').toggleClass('show');
+  })
+
+  $('.achange').click(function(){
+              $($(this).parents().children('th')).each(function(i,e){
+				$($(".box-box input").get(i)).val($(this).text())
+              });
+              $('.change').toggleClass('show');
+  })
+  $('#cancelchange').click(function(){
+              $('.change').toggleClass('show');
+  })
+
+  $('.adel').click(function(){
+              var a=($(this).attr("id"));
+              var b=($('#example1').attr("name"));
+              $('.del').toggleClass('show');
+                        $("#delsubmit").click(function(){
+                                window.location.href="/admin/delserver_"+b+"?hostname="+a;
+                        });
+  })
+
+
+  $('#cancelbad').click(function(){
+              $('.bad').toggleClass('hide');
+  })
+
+
+  $('#canceldel').click(function(){
+              $('.del').toggleClass('show');
+  })
+
+</script>
+
+
+</body>
+
+</html>
+
+
+
+
+
+
+{%endblock%}

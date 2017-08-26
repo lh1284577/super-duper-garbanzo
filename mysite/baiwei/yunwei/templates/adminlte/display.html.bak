@@ -1,0 +1,67 @@
+<html>
+      <head>
+        <meta charset='utf-8'>
+        <title>tomcat资源列表</title>
+        <script src="http://www.w3school.com.cn/jquery/jquery.js"></script>
+        <script type="text/javascript">
+                function go(args1,args2){
+                        $.ajax({
+                        type:'GET',
+                        url:'/admin/deltomcat',
+                        data: {container:args1,ip:args2},
+                        success:function(data){
+                        window.location.reload();
+                        }
+
+                    });
+                        
+                }
+       </script>
+       <script type="text/javascript">
+                function set(){
+                        var ip = window.location.href.split('=')[1];
+                        //var ip=$('#ip').val(newip);
+                        var domain=$('#domain').val();
+                        var service=$('#service').val();
+                        var container=$('#container').val();
+                        $.ajax({
+                                type:'GET',
+                                url:'/admin/newtomcat',
+                                data: {ip:ip,domain:domain,service:service,container:container},
+                                success:function(data){
+                                $('#content').append('<a>'+data+'</a>');
+                                window.location.reload();
+
+                                }
+                        });
+
+                  }     
+       </script>
+  </head>
+  <body>
+        <fieldset style="width:800px;">
+        <legend>新增记录</legend>
+        {% csrf_token %}
+         <input id="ip" type="hidden" name="ipvalue" />
+         tomcat域名:<input id="domain" type="text" name="domainvalue" />
+         服务:<input id="service" type="text" name="servicevalue" />
+         容器号:<input id="container" type="text" name="containervalue" />
+         <input id="send" type="button"  value="提交" onclick="set();" />
+        </fieldset>
+        <div id="content"></div>
+        </br>
+        <h2>Tomcat资源列表</h2>
+        <div style="color:#FF0000">注意"删除"按钮，点击后会直接删除</div>
+        <div style="color:#FF0000">注意"容器号"不可以重复</div>
+        <table style="width:800px;" border="1" bordercolor="#7B68EE" cellspacing="0" cellpadding="0">
+        <tr>
+          <th>tomcat域名</th><th>服务</th><th>容器号</th><th>操作</th><th>操作</h>
+        </tr>
+	        {% for item in result %}
+        <tr>
+          <td>{{item.domain}}</td><td>{{item.service}}</td><td>{{item.container}}</td><td><input type="button" value="修改" onclick="window.location.href='/admin/modifytomcat?ip={{item.ip}}&domain={{item.domain}}&service={{item.service}}&container={{item.container}}'" /></td><td><input type="button" value="删除" onclick="go('{{item.container}}','{{item.ip}}');"  /></td>
+        </tr>
+        {% endfor %}
+        </table>
+ </body>
+ </html>

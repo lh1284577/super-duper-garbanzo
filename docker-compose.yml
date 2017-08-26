@@ -1,0 +1,18 @@
+django:
+  image: lh1284577/django:20170826
+  ports:
+    - 8000:8000
+  volumes:
+    - /opt/mysite/mysite:/data/mysite
+  command: python /data/mysite/baiwei/manage.py runserver 0.0.0.0:8000
+  links:
+    - db
+db:
+  image: lh1284577/mysql:20170827
+  ports:
+    - 3306:3306
+  volumes:
+    - ./db:/var/lib/mysql
+  environment:
+    - MYSQL_DATABASE=yunwei
+    - MYSQL_ROOT_PASSWORD=root

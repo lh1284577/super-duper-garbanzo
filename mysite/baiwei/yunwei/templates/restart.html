@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title></title>
+</head>
+<style>
+.hide{
+	display:none;
+}
+
+.red{
+	background-color: red;
+}
+
+.report-table{
+	height:40px;
+	text-align:center;
+	background-color: #0bb577;
+	color: white;
+	font-weight: normal;
+}
+
+li {
+	float:left;
+}
+</style>
+
+<script src="//apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="//apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+<body>
+<div align=center>
+
+	<div>
+			<h1>启动页面</h1>
+	</div>
+
+    {% csrf_token %}
+	<div style='height:100px;width:1200px;'>
+			<form>
+			<ul>
+				<li>
+					<em>环境</em>
+                			<select id=env >
+                			<option value="beta|prd" >--请选择--</option>
+                			<option value="beta">beta</option>
+                			<option value="prd">prd</option>
+                			</select>
+				</li>
+				<li>
+					<em>容器</em>
+                			<select  id=server >
+                			<option value="" >--请选择--</option>
+                			<option value="tomcat">tomcat</option>
+                			<option value="jboss">jboss</option>
+                			</select>
+				</li>
+				<li>
+					<em>模块</em>	
+					<input id=module class=keydown type=text size="20" maxlength=50>
+				</li>
+				<li>
+					<em>应用</em>	
+					<input id=app type=text class=keydown size="20" maxlength=50>
+				</li>
+				<li>
+					<input type="button" class=keydown id=commentB maxlength=6 value="查询">
+				</li>
+
+			</ul>
+			</form>
+	</div>
+		
+
+
+	<div>
+		<table id=list>
+    		<tr>
+      		<th class="report-table" nowrap="nowrap" style="text-align:center;">环境</th>
+     	 	<th class="report-table" nowrap="nowrap" style="width=120px;text-align:left;">容器</th>
+     	 	<th class="report-table" nowrap="nowrap" style="width=120px;text-align:left;">项目名称</th>
+      		<th class="report-table" nowrap="nowrap" style="width=120px;text-align:left;">应用名称</th>
+      		<th class="report-table" nowrap="nowrap" style="width:120px;text-align:left;">端口号</th>
+      		<th class="report-table" nowrap="nowrap" style="width:120px;text-align:left;">重启</th>
+    		</tr>
+			{%for k,v in FILE.items%}
+				{%ifequal v.env 'beta' %}	
+				<tr class=hide>
+					<td>{{v.env}}</td>
+					<td>{{v.server}}</td>
+					<td>{{v.module}}</td>
+					<td>{{v.app}}</td>
+					<td>{{v.port}}</td>
+				        <td>
+						<input type="button" class=Restart  value="重启" onclick="Restart(this,'{{v.env}},{{v.server}},{{v.module}},{{v.ip}}')">
+					</td>
+				</tr>
+				{%else%}
+				<tr class=hide>
+					<td>{{v.env}}</td>
+					<td>{{v.server}}</td>
+					<td>{{v.module}}</td>
+					<td>{{v.app}}</td>
+					<td>{{v.port}}</td>
+				        <td>
+						<input type="button" class=Restart value="重启" onclick="Restart(this,'{{v.env}},{{v.server}},{{v.module}},{{v.ip}}')">
+					</td>
+				</tr>
+				{%endifequal%}
+			{%endfor%}
+		</table>
+	</div>
+</div>
+</body>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+	 	$("body").keydown(function() {
+             		if (event.keyCode == "13") {//keyCode=13是回车键
+                 		$('#commentB').click();
+             		}
+         	});
+                $('#commentB').click(function(){
+			$('#list').find('td').each(function(){
+				var comment = $('#server').val()
+				var Env=$('#env').val()
+				var Module=$('#module').val()
+				var App=$('#app').val()
+				var env = $(this).parent().find('td:nth-child(1)').text()
+				var server = $(this).parent().find('td:nth-child(2)').text()
+				var module = $(this).parent().find('td:nth-child(3)').text()
+				var app = $(this).parent().find('td:nth-child(4)').text()
+				var Server = server.replace(/(.*)\d+/,'$1')
+				if (env.match(eval('/'+Env+'/')) && Server.match(eval('/'+comment+'/')) && module.match(eval('/'+Module+'/')) && app.match(eval('/'+App+'/'))){
+						$(this).parent().show();
+					}
+					else{
+						$(this).parent().hide();
+					}
+			})
+                })
+		                
+        })
+
+		 function Restart(mythis,item){
+		                $.ajax({
+		                        url:'/restartserver/resserver/',
+		                        data:{'item':item,'_':new Date().getTime(),'csrfmiddlewaretoken':$('input[name=\'csrfmiddlewaretoken\']').val()},
+		                        type:'POST',
+		                        async:false,
+		                        success:function(data){
+						$(mythis).addClass('red')
+		                        },
+		                        error:function(e,m,t){
+		                        }
+		                
+		                })
+		}
+</script>
+</html>
+

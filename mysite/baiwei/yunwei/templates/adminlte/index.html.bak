@@ -1,0 +1,77 @@
+{% extends "adminlte/base.html" %}
+{% block content %}
+        <div  id='hide' style="border: 1px solid #ebebeb;margin-top:0px;float:right">
+        {% csrf_token %}
+                <div>
+                        <table>
+                                <tr><td><h3 style='color:red'>NEWS</h3></td></tr>
+                        </table>
+                </div>
+                <div>
+                        <table >
+                                {% for list in   LIST %}
+                                <tr>
+                                        <td style="border-bottom: 1px dotted #ececec;"><span >{{forloop.counter}}  {{list.title}}</span></td>
+                                </tr>
+                                {% endfor %}
+                        </table>
+                </div>
+
+        </div>
+
+
+
+       <div class="col-md-6">
+          <div class="box box-solid">
+            <!-- /.box-header -->
+            <div class="box-body">
+              <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                  <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                  <li data-target="#carousel-example-generic" data-slide-to="1" class=""></li>
+                  <li data-target="#carousel-example-generic" data-slide-to="2" class=""></li>
+                </ol>
+                <div class="carousel-inner">
+                  <div class="item active">
+                    <img src="jenkins.png" onclick=window.open('http://jenkins.uletm.com') alt="First slide">
+
+                    <div class="carousel-caption">
+                     Jenkins 
+                    </div>
+                  </div>
+
+                  <div class="item">
+                    <img src="mq.png" onclick=window.open('http://mq.uletm.com') alt="Second slide">
+
+                    <div class="carousel-caption">
+                      activemq 
+                    </div>
+                  </div>
+                  <div class="item">
+                    <img src="rundeck.png" onclick=window.open('http://172.24.147.240:4440') alt="Second slide">
+
+                    <div class="carousel-caption">
+                      rundeck
+                    </div>
+                  </div>
+
+
+                </div>
+                <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                  <span class="fa fa-angle-left"></span>
+                </a>
+                <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                  <span class="fa fa-angle-right"></span>
+                </a>
+              </div>
+            </div>
+            <!-- /.box-body -->
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+{%endblock%}

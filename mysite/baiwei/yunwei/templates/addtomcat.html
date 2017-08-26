@@ -1,0 +1,240 @@
+{% extends "adminlte/base.html" %}
+{% block content %}
+<head>
+        <link href="media/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="media/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css"/>
+        <link href="media/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+        <link href="media/css/style-metro.css" rel="stylesheet" type="text/css"/>
+        <link href="media/css/style.css" rel="stylesheet" type="text/css"/>
+        <link href="media/css/style-responsive.css" rel="stylesheet" type="text/css"/>
+        <link href="media/css/default.css" rel="stylesheet" type="text/css" id="style_color"/>
+        <link href="media/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+</head>
+<body class="page-header-fixed">
+	<div >
+		<div class="navbar-inner">
+			<div class="container-fluid">
+				<!-- BEGIN PAGE HEADER-->   
+				<div class="row-fluid">
+					<div >
+        					<div >
+							<section class="content-header">
+      								<h1>
+        								<small></small>
+      								</h1>
+      								<ol class="breadcrumb">
+        								<li><a href="/yunwei"><i class="fa fa-dashboard"></i> Home</a></li>
+        								<li><a href="#">服务管理</a></li>
+        								<li><a href="#">容器新增</a></li>
+        								<li class="active">tomcat新增</li>
+      								</ol>
+    							</section>
+						</div>
+				<!-- END PAGE HEADER-->
+				<!-- BEGIN PAGE CONTENT-->
+				<div class="row-fluid">
+					<div class="span12">
+						<!-- BEGIN SAMPLE FORM PORTLET-->   
+						<div class="portlet box blue">
+							<div class="portlet-title">
+								<div class="caption"><i class="icon-reorder"></i>Tomcat项目新增</div>
+							</div>
+
+
+
+							<div class="portlet-body form">
+								<form  name=form1 class="form-horizontal">
+{% csrf_token %}
+
+
+									<div class="control-group">
+										<label class="control-label">项目组</label>
+										<div class="controls">
+											<input name=MODULE type="text" class="span6 m-wrap tooltips" data-trigger="hover" />                       
+										</div>
+									</div>
+									<div class="control-group">
+										<label class="control-label">APP</label>
+										<div class="controls">
+											<input name=APP type="text" class="span6 m-wrap tooltips" data-trigger="hover" />                       
+										</div>
+									</div>
+
+
+									<div class="control-group">
+										<label class="control-label">ContextPath</label>
+										<div class="controls">
+											<input name=linkname type="text" class="span6 m-wrap tooltips" data-trigger="hover" data-original-title="域名:上下文名称" />           
+										</div>
+									</div>
+									<div class="control-group">
+										<label class="control-label">环境</label>
+										<div class="controls">
+											<select class="span6 chosen" name=env data-placeholder="Choose a Category" tabindex="1">
+												<option value=""></option>
+												<option value="test">test</option>
+												<option value="prd">prd</option>
+											</select>
+										</div>
+									</div>
+
+
+
+									<div class="control-group">
+										<label class="control-label">版本</label>
+										<div class="controls">
+											<select class="span6 chosen" name=Version data-placeholder="Choose a Category" tabindex="1">
+												<option value=""></option>
+												<option selected="" value="tomcat7.0.77">tomca7.0.77</option>
+											</select>
+										</div>
+									</div>
+
+									<div class="control-group">
+										<label class="control-label">容器</label>
+										<div class="controls">
+											<select class="span6 chosen" name=server data-placeholder="Choose a Category" tabindex="1">
+												<option value=""></option>
+                  										<option value="tomcat1">tomcat1</option>
+                  										<option value="tomcat2">tomcat2</option>
+                  										<option value="tomcat3">tomcat3</option>
+                  										<option value="tomcat4">tomcat4</option>
+                  										<option value="tomcat5">tomcat5</option>
+                  										<option value="tomcat6">tomcat6</option>
+                  										<option value="tomcat7">tomcat7</option>
+                  										<option value="tomcat8">tomcat8</option>
+                  										<option value="tomcat9">tomcat9</option>
+                  										<option value="tomcat10">tomcat10</option>
+                  										<option value="tomcat11">tomcat11</option>
+											</select>
+										</div>
+									</div>
+
+									<div class="control-group">
+										<label class="control-label">JDK</label>
+										<div class="controls">
+											<select class="span6 chosen" name=JDK data-placeholder="Choose a Category" tabindex="1">
+												<option value=""></option>
+												<option value="jdk1.7">jdk1.7</option>
+												<option selected="" value="jdk1.8">jdk1.8</option>
+											</select>
+										</div>
+									</div>
+
+
+
+
+
+									<div class="control-group">
+										<label class="control-label">域名</label>
+										<div class="controls">
+											<input type="text" value="localhost" name=hostname class="span6 m-wrap" />
+											<span class="help-inline"></span>
+										</div>
+									</div>
+							
+								<!--
+									<div class="control-group">
+										<label class="control-label">Alias</label>
+										<div class="controls">
+											<td><input id="NameSoft" size="15"  type="text" maxlength=60  name=alias1></td>
+                									<td><input id="NameSoft" size="15"  type="text" maxlength=60  name=alias2></td>
+                									<td><input id="NameSoft" size="15"  type="text" maxlength=60  name=alias3></td>
+											<span class="help-inline"></span>
+										</div>
+									</div>
+								-->
+
+									<div class="control-group">
+										<label class="control-label">Disconf</label>
+										<div class="controls">
+											<textarea name=disconf type="text" class="span6 m-wrap tooltips" data-trigger="hover" data-original-title="例: -Ddisoncf.env=test .."/></textarea>
+										</div>
+									</div>
+
+									<div class="control-group">
+										<label class="control-label">Git 路径</label>
+										<div class="controls">
+											<input name=gitpath type="text" class="span6 m-wrap tooltips" data-trigger="hover" />                       
+										</div>
+									</div>
+
+
+									<div class="control-group">
+										<label class="control-label">IP</label>
+										<div class="controls">
+											<input name=ip type="text" class="span6 m-wrap tooltips" data-trigger="hover" data-original-title="多IP 例: 1.1.1.1,2.2.2.2" />                       
+										</div>
+									</div>
+
+<div >
+
+</div>
+	
+									<div class="form-actions">
+										<button type="button" class="btn domain">Submit</button>
+										<button type="reset"  class="btn">Cancel</button>                            
+									</div>
+								</form>
+								<!-- END FORM-->       
+							</div>
+						</div>
+						<!-- END SAMPLE FORM PORTLET-->
+					</div>
+				</div>
+			</div>
+			<!-- END PAGE CONTAINER-->
+		</div>
+	</div>
+	</div>
+	</div>
+		<B><font  size="3">执行结果如下:</font></B>
+	<div style="width:100%;height:200px">
+		<div style="margin-left:50px;margin-top:50px"><pre id=content style="width:50%;height:200px"></pre></div>
+	</div>
+
+</body>
+
+
+
+<script src="//www.w3school.com.cn/jquery/jquery.js"></script>
+<script type="text/javascript">
+	
+
+ 	$('.domain').click(function(){
+
+
+
+		var MODULE=form1.MODULE.value
+		var APP=form1.APP.value
+		var LINKNAME=form1.linkname.value
+		var env=form1.env.value
+		var Version=form1.Version.value
+		var server=form1.server.value
+		var JDK=form1.JDK.value
+		var hostname=form1.hostname.value
+		var disconf=form1.disconf.value
+		var gitpath=form1.gitpath.value
+		var ip=form1.ip.value
+
+
+
+                $.ajax({
+                        url:'tomcatconfig',
+                        data:{'_':new Date().getTime(),'csrfmiddlewaretoken':$('input[name=\'csrfmiddlewaretoken\']').val(),'MODULE':MODULE,'APP':APP,'ENV':env,'LINKNAME':LINKNAME,'VERSION':Version,'SERVER':server,'JDK':JDK,'HOSTNAME':hostname,'DISCONF':disconf,'GITPATH':gitpath,'IP':ip},
+                        type:'POST',
+                        async:false,
+                        success:function(data){
+				$('#content').html(data.status);
+				 $('.domain').addClass(data.color);
+                        },
+                        error:function(e,m,t){
+                        }
+
+                })
+
+        })
+</script>
+
+
+{% endblock %}

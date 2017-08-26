@@ -1,0 +1,6 @@
+FROM python:2.7
+ADD MySQL-python-1.2.3.tar.gz  /
+ADD Django-1.9.13.tar.gz  /
+ADD mysite.tar.gz /data
+ADD django.sh /
+RUN bash /django.sh

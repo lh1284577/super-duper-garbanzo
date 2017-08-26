@@ -1,0 +1,128 @@
+{% extends "adminlte/base.html" %}
+{% block content %}
+<head>
+	<link href="media/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+	<link href="media/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css"/>
+	<link href="media/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+	<link href="media/css/style-metro.css" rel="stylesheet" type="text/css"/>
+	<link href="media/css/style.css" rel="stylesheet" type="text/css"/>
+	<link href="media/css/style-responsive.css" rel="stylesheet" type="text/css"/>
+	<link href="media/css/default.css" rel="stylesheet" type="text/css" id="style_color"/>
+	<link href="media/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+</head>
+<body class="page-header-fixed">
+	<div >
+		<div class="navbar-inner">
+			<div class="container-fluid">
+				<!-- BEGIN PAGE HEADER-->   
+				<div class="row-fluid">
+					<div >
+        					<div >
+							<section class="content-header">
+      								<h1>
+        								<small></small>
+      								</h1>
+      								<ol class="breadcrumb">
+        								<li><a href="/admin"><i class="fa fa-dashboard"></i> Home</a></li>
+        								<li><a href="#">服务管理</a></li>
+        								<li><a href="#">容器新增</a></li>
+        								<li class="active">jboss新增</li>
+      								</ol>
+    							</section>
+						</div>
+				<!-- END PAGE HEADER-->
+				<!-- BEGIN PAGE CONTENT-->
+				<div class="row-fluid">
+					<div class="span12">
+						<!-- BEGIN SAMPLE FORM PORTLET-->   
+						<div class="portlet box blue">
+							<div class="portlet-title">
+								<div class="caption"><i class="icon-reorder"></i>Jboss新增</div>
+							</div>
+
+
+
+							<div class="portlet-body form">
+								<form method="get"  target=domain   action="http://restart.uletm.com/set_jboss.php" class="form-horizontal">
+
+
+									<div class="control-group">
+										<label class="control-label">ENV</label>
+										<div class="controls">
+											<select class="span6 chosen" name=env data-placeholder="Choose a Category" tabindex="1">
+												<option value=""></option>
+												<option selected="" value="beta">beta</option>
+												<option value="prd">prd</option>
+											</select>
+										</div>
+									</div>
+
+
+
+									<div class="control-group">
+										<label class="control-label">模块</label>
+										<div class="controls">
+											<input type="text" value="localhost" name=module class="span6 m-wrap" />
+											<span class="help-inline"></span>
+										</div>
+									</div>
+
+									<div class="control-group">
+										<label class="control-label">端口</label>
+										<div class="controls">
+											<input name=port type="text" class="span6 m-wrap tooltips" data-trigger="hover" data-original-title="注：真实服务端口" />                       
+										</div>
+									</div>
+
+									<div class="control-group">
+										<label class="control-label">组播IP</label>
+										<div class="controls">
+											<input name=vip type="text" class="span6 m-wrap tooltips" data-trigger="hover" data-original-title="注：非服务器IP" />                       
+										</div>
+									</div>
+
+                                                                        <div class="control-group">
+                                                                                <label class="control-label">IP</label>
+                                                                                <div class="controls">
+                                                                                        <input name=ip type="text" class="span6 m-wrap tooltips" data-trigger="hover" data-original-title="多IP 例: 1.1.1.1,2.2.2.2" />
+                                                                                </div>
+                                                                        </div>
+	
+<div >
+<p><td colspan="10" >执行结果如下:</td></p>
+<iframe  name='domain' valign="bottom" align="right"  width="100%" height="200" frameborder=0 scrolling=auto></iframe>
+</div>
+									<div class="form-actions">
+										<button type="submit" name=domain class="btn blue ajax">Submit</button>
+										<button type="reset" name=domain class="btn">Cancel</button>                            
+									</div>
+								</form>
+								<!-- END FORM-->       
+							</div>
+						</div>
+						<!-- END SAMPLE FORM PORTLET-->
+					</div>
+				</div>
+			</div>
+			<!-- END PAGE CONTAINER-->
+		</div>
+	</div>
+	</div>
+	</div>
+
+        <script src="media/js/jquery-1.10.1.min.js" type="text/javascript"></script>
+        <script src="media/js/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
+        <script src="media/js/app.js"></script>
+        <script>
+                jQuery(document).ready(function() {       
+                   // initiate layout and plugins
+                   App.init();
+                   FormComponents.init();
+                });
+        </script>
+
+
+
+
+</body>
+{% endblock %}

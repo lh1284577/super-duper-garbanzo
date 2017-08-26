@@ -1,0 +1,12 @@
+FROM django1.9.13_python2.7
+RUN apt-get install expect -y
+ADD mysql.sh /
+RUN bash /mysql.sh
+ADD my.cnf /etc/mysql/my.cnf
+RUN /etc/init.d/mysql start &&\
+    mysql -uroot -proot -e "grant all privileges on *.* to 'root'@'%' identified by 'root';"&&\
+    mysql -uroot -proot -e "grant all privileges on *.* to 'root'@'localhost' identified by 'root';"&&\ 
+    mysql -uroot -proot -e "create database yunwei;" 
+
+EXPOSE 3306
+CMD ["mysqld"] 

@@ -1,0 +1,157 @@
+{% extends "adminlte/base.html" %} {% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>AdminLTE 2 | Data Tables</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.6 -->
+  <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="css/ionicons.min.css">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="plugins/datatables/dataTables.bootstrap.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+  <!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+  <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
+
+
+<style>
+.con {
+        height:30px;
+        background:#dd4b39;
+        border-color: #d73925;
+}
+
+.add  {
+    position: fixed;
+    background: rgba(0, 0, 0, 0.58);
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    display:none;
+}
+
+.add > form {
+    background: white;
+    margin: 45px auto;
+    width: 580px;
+    padding: 30px;
+    border-radius: 3px;
+    box-shadow: 0 0 53px rgba(0, 0, 0, 0.15);
+}
+
+.change  {
+    position: fixed;
+    background: rgba(0, 0, 0, 0.58);
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    display:none;
+}
+
+.change > form {
+    background: white;
+    margin: 45px auto;
+    width: 580px;
+    padding: 30px;
+    border-radius: 3px;
+    box-shadow: 0 0 53px rgba(0, 0, 0, 0.15);
+}
+
+
+.del  {
+    position: fixed;
+    background: rgba(0, 0, 0, 0);
+    left: 0;
+    top: 100px;
+    right: 0;
+    bottom: 0;
+    display:none;
+}
+
+.del > form {
+    background: white;
+    margin: 45px auto;
+    width: 580px;
+    padding: 30px;
+    border-radius: 3px;
+    box-shadow: 0 0 53px rgba(0, 0, 0, 0.15);
+}
+
+
+.bad  {
+    position: fixed;
+    background: rgba(0, 0, 0, 0);
+    left: 0;
+    top: 100px;
+    right: 0;
+    bottom: 0;
+}
+
+.bad > form {
+    background: white;
+    margin: 45px auto;
+    width: 580px;
+    padding: 30px;
+    border-radius: 3px;
+    box-shadow: 0 0 53px rgba(0, 0, 0, 0.15);
+    margin-top:300px;
+}
+
+</style>
+
+
+<html>
+  <head>
+	<meta charset='utf-8'>
+	<title>tomcat容器资源列表</title>
+	<script src="js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript">
+	   function go(args){
+		var flag = args
+		alert(flag);
+
+	}
+	</script>
+  </head>
+  <body>
+	<div >
+    	<section class="content-header">
+      	    <h1>Tomcat容器资源列表2.0</h1>
+            <hr style="background-color:blue;height:1px;"/>
+      	    <ol class="breadcrumb">
+              <li><a href="/admin"><i class="fa fa-dashboard"></i> Home</a></li>
+              <li><a href="#">其他</a></li>
+              <li class="active">tomcat资源列表</li>
+      	    </ol>
+    	</section>
+    	</div>
+
+	<section class="content-header">
+	<table style="width:800px;" border="1" bordercolor="#0000FF" cellspacing="0" cellpadding="0">
+	<tr>
+	  <th bgcolor="">环境</th><th>节点</th><th bgcolor="">内存</th><th>ip</th><th bgcolor="">资源池</th><th>详细</th><th bgcolor="">操作</th>
+	</tr>
+	{% for item in listarray %}
+	<tr>
+	  <td bgcolor="">{{item.env}}</td><td>{{item.node}}</td><td bgcolor="">{{item.momery}}</td><td>{{item.ip}}</td><td bgcolor="">{{item.pool}}</td><td><input type="button" value="详细" onclick="window.location.href='/admin/display/?ip={{item.ip}}'"/></td><td bgcolor=""><input type="button" value="修改资源池" onclick="window.location.href='/admin/tomcatpool/?ip={{item.ip}}&env={{item.env}}'"</td>
+	</tr>
+	{% endfor %}
+	</table>
+	</section>
+  </body>
+
+
+
+
+</html>
+{%endblock%}

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title></title>
+</head>
+<style>
+.hide{
+	display:none;
+}
+
+.red{
+	background-color: red;
+}
+
+.report-table{
+	height:40px;
+	text-align:center;
+	background-color: #0bb577;
+	color: white;
+	font-weight: normal;
+}
+
+li {
+	float:left;
+}
+</style>
+
+<script src="//apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="//apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+<body>
+<div align=center>
+
+	<div>
+			<h1>apache 查询页面</h1>
+	</div>
+
+    {% csrf_token %}
+	<div style='height:100px;width:1200px;'>
+			<form  method="get"     action="/apache/iplist">
+					<em>域名</em>	
+					<input name=iplist type=text class=keydown size="20" maxlength=50>
+					<input type="submit" class=keydown  maxlength=6 value="查询">
+
+			</form>
+	</div>
+	<div>{{iplist}}</div>
+		
+
+
+</div>
+</body>
+</html>
+
