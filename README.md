@@ -20,7 +20,9 @@
 	4.Django 的一些基本特性，静态,DB，路由，VIEW ,session, admin后台
 
 
-默认安装[lihao]账号，密码为[lihao] 
-验证码为 [lihao] 
+### 默认安装
+账号[lihao](http://)
+密码[lihao](http://) 
+验证码 [lihao](http://) 
 
 ### 最后执行Django , 然后浏览 http://IP:8000/yunwei/
