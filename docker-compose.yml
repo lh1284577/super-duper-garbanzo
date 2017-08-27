@@ -3,7 +3,7 @@ django:
   ports:
     - 8000:8000
   volumes:
-    - ./mysite:/data/mysite
+    - /opt/mysite/mysite:/data/mysite
   command: python /data/mysite/baiwei/manage.py runserver 0.0.0.0:8000
   links:
     - db
