@@ -1,6 +1,0 @@
-                                        <div class='form-group'>
-                                          <label class='col-md-4 control-label' for='name.first'>First name</label>
-                                          <div class='col-md-6'>
-                                          <input id='name.first' name='name.first' type='text' placeholder='' class='form-control input-md' required='' value='{{A}}'>
-                                          </div>
-                                        </div>

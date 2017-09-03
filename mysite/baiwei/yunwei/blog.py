@@ -57,8 +57,7 @@ class BlogAddView(TemplateView):
     #    return self.render_to_response(context)
     def get_context_data(self, **kwargs):
     	context = super(BlogAddView, self).get_context_data(**kwargs)
-	context['username'] =  self.request.user.is_authenticated
-	print(dir(self.request.user))
+	context['username'] =  self.request.user
     	return context
 
 

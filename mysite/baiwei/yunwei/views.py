@@ -167,6 +167,7 @@ def login(req):
                     password = uf.cleaned_data['password']
                     User = auth.authenticate(username=username,password=password)
                     if User.is_authenticated():
+			auth.login(req,User)
 			req.session['username'] = username
                         return HttpResponseRedirect('/yunwei/')
                 except:

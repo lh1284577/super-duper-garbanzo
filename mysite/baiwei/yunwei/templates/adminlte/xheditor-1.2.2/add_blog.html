@@ -92,7 +92,7 @@ body{
 	{% csrf_token %}
 	    <p>标题<input  id=title size=50 name=title type=text></p>
 	    <a></a>
-	    <input  name=username type=text value={{username}}>
+	    <input hidden name=username type=text value={{username}}>
 	    <p>
 		<textarea id="content" name="content" rows="40" cols="120"></textarea>
 	    </p>

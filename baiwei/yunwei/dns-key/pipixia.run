@@ -1,4 +1,0 @@
-key pipixia.run {
-  algorithm HMAC-MD5 ;
-  secret "FpMNUzhs5XV4JUdZ5vrSzWoDRT+e9135NbL9t2i1U3FTryncsGRsEhdJbwCLdSuJuvuwnXhuSRXlzy4KrI4rjQ==" ;
-} ;
