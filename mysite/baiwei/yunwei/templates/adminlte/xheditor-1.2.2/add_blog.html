@@ -1,4 +1,3 @@
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -89,44 +88,56 @@ body{
 	</div>
 
 
-	<form method = 'post' action='/yunwei/add/' onsubmit="return check()">
+	<form name=form1>
 	{% csrf_token %}
 	    <p>标题<input  id=title size=50 name=title type=text></p>
+	    <input hidden name=username type=text value={{username}}>
 	    <a></a>
 	    <p>
-		<textarea id="content" name="preview" rows="40" cols="120"></textarea>
+		<textarea id="content" name="content" rows="40" cols="120"></textarea>
 	    </p>
-	    <input   type="submit" value = "提交" />
+	    <input class='ADDBLOG'  type="submit" value = "提交" />
 	</form>
 	<br>
 
 
 </body>
 
-
+<script src="//www.w3school.com.cn/jquery/jquery.js"></script>
 
 <script type="text/javascript">
 
-                function check(){
 
-                        if(document.getElementById("title").value == "" && document.getElementById("content").value == ""){
-                                $('#title,#content').addClass('show');
-                                return false;
-                        }else{
-                                $('#title,#content').removeClass('show');
-                        };
+        $('.ADDBLOG').click(function(){
 
 
-                        if(document.getElementById("title").value == ""){
-                                $('#title').toggleClass('show');
-                                return false;
-                        }else{
-                                $('#title').removeClass('show');
+                if(document.getElementById("title").value == "" || document.getElementById("content").value == ""){
+                        $('#title,#content').addClass('show');
+                        return false;
+                }else{
+                        $('#title,#content').removeClass('show');
+                };
 
-                        };
+
+                var username=form1.username.value
+                var title=form1.title.value
+                var content=form1.content.value
+
+                $.ajax({
+                        url:'/yunwei/api/BLOG/',
+                        data:{'_':new Date().getTime(),'csrfmiddlewaretoken':'{{ request.COOKIES.csrftoken }}','username':username,'title':title,'content':content},
+                        type:'POST',
+                        async:false,
+                        success:function(data){
+                        },
+                        error:function(e,m,t){
+                        }
+
+                })
+
+        })
 
 
-                }
 </script>
 
 </html>

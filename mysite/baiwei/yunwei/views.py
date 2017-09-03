@@ -13,6 +13,16 @@ from yunwei.models import Profile
 import json
 from yunwei.models import BLOG
 
+from yunwei.serializers import BLOGSerializer
+from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import api_view
+
+class BLOGViewSet(viewsets.ModelViewSet):
+    	queryset = BLOG.objects.all()
+    	serializer_class = BLOGSerializer
+    	permission_classes = (IsAuthenticated,)
+
 
 class ProfileForm(forms.Form):
    Picture = forms.ImageField()

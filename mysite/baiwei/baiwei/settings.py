@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'rest_framework_swagger',
     'yunwei',
 ]
 
@@ -149,3 +151,11 @@ STATIC_PATH = os.path.join( os.path.dirname(__file__) , 'static' )
 
 DEFAULT_CHARSET = 'utf-8'
 FILE_CHARSET = 'utf-8'
+
+
+#SWAGGER_SETTINGS = {
+#    'JSON_EDITOR': True,
+#    'LOGIN_URL': 'login',
+#    'LOGOUT_URL': 'logout',
+#}
+

@@ -18,6 +18,12 @@ from views import UserForm
 from django.db.models import Q
 
 
+from django.views.generic.edit import CreateView
+from django.views.generic import TemplateView
+from django.views.generic import View
+
+
+
 @yunwei.auth.login_check()
 def blog(req):
    username = req.session['username']
@@ -34,10 +40,29 @@ def blog(req):
 
    return render_to_response('adminlte/blog.html',{'username':username,'LIST':LIST,'message_list':message_list,'COUNT':COUNT,'TOUXIANG':TOUXIANG,'CONTENT':'hide'},context_instance=RequestContext(req,processors=[touxiang]))
 
-#@yunwei.auth.login_check()
+
+class BlogAddView(TemplateView):
+ 
+    template_name = 'adminlte/xheditor-1.2.2/add_blog.html'
+    model = BLOG
+    def get(self, req, *args, **kwargs):
+        context = self.get_context_data(**kwargs)                                                                                                        
+        username = req.session['username']
+        context['username'] = username
+        return self.render_to_response(context)
+
+    def get_context_data(self, **kwargs):
+    	context = super(BlogAddView, self).get_context_data(**kwargs)
+    	return context
+
+
+
+@yunwei.auth.login_check()
 def addblog(req):
-    uf = UserForm(req.GET)
-    return render_to_response('adminlte/xheditor-1.2.2/add_blog.html',{'uf':uf},context_instance=RequestContext(req,processors=[touxiang]))
+    username = req.session['username']
+    if req.GET:
+	return HttpResponseRedirect('/yunwei/blog')
+    return render_to_response('adminlte/xheditor-1.2.2/add_blog.html',{'username':username},context_instance=RequestContext(req,processors=[touxiang]))
 
 def add(req):
     username = req.session['username']
