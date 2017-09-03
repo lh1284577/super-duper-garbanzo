@@ -8,7 +8,7 @@ from django.contrib import admin
 
 from rest_framework.routers import DefaultRouter
 from rest_framework_swagger.views import get_swagger_view
-
+import os
 
 
 router = DefaultRouter()
@@ -40,5 +40,5 @@ urlpatterns = patterns('',
     url(r'^regist',views.regist,name = 'regist'),
     url(r'^logout_view',views.logout_view),
     url(r'^_(?P<id>[0-9,a-z,A-Z,_,.,\,]+)',views.charts),
-    url( r'^(.*)$', 'django.views.static.serve',{ 'document_root': '/data/mysite/baiwei/yunwei/templates/adminlte' }),
+    url( r'^(.*)$', 'django.views.static.serve',{ 'document_root': os.getcwd() + '/yunwei/templates/adminlte' }),
 )+static(settings.STATIC_URL)

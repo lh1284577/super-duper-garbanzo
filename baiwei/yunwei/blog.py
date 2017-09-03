@@ -40,17 +40,10 @@ def blog(req):
 
    return render_to_response('adminlte/blog.html',{'username':username,'LIST':LIST,'message_list':message_list,'COUNT':COUNT,'TOUXIANG':TOUXIANG,'CONTENT':'hide'},context_instance=RequestContext(req,processors=[touxiang]))
 
-
-class BlogAddView(TemplateView):
- 
+class BlogAddView(CreateView):
     template_name = 'adminlte/xheditor-1.2.2/add_blog.html'
     model = BLOG
-    def get(self, req, *args, **kwargs):
-        context = self.get_context_data(**kwargs)                                                                                                        
-        username = req.session['username']
-        context['username'] = username
-        return self.render_to_response(context)
-
+     
     def get_context_data(self, **kwargs):
     	context = super(BlogAddView, self).get_context_data(**kwargs)
     	return context

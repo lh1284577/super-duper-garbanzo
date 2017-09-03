@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.shortcuts import render,render_to_response
 from django.http import HttpResponse,HttpResponseRedirect
 from django.template import RequestContext
-from django.contrib.auth import authenticate,login,logout
+from django.contrib import auth
 import yunwei.auth
 from django import forms
 import datetime,time
@@ -136,7 +136,7 @@ def regist(req):
             password = uf.cleaned_data['password']
             email = uf.cleaned_data['email']
             #添加到数据库
-            user = authenticate(username=username,password=password)
+            user = auth.authenticate(username=username,password=password)
             if user is not None:
                 return render_to_response('adminlte/register.html',{'uf':uf}, context_instance=RequestContext(req))
             else:
@@ -152,7 +152,7 @@ def regist(req):
 
 
 def logout_view(req):
-    logout(req)
+    auth.logout(req)
     return HttpResponseRedirect('/yunwei/login')
 
 
@@ -165,8 +165,8 @@ def login(req):
                 try:
                     username = uf.cleaned_data['username']
                     password = uf.cleaned_data['password']
-                    user = authenticate(username=username,password=password)
-                    if user.is_authenticated():
+                    User = auth.authenticate(username=username,password=password)
+                    if User.is_authenticated():
 			req.session['username'] = username
                         return HttpResponseRedirect('/yunwei/')
                 except:

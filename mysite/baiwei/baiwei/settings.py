@@ -83,7 +83,7 @@ DATABASES = {
         'NAME': 'yunwei',                      # Or path to database file if using sqlite3.
         'USER': 'root',                      # Not used with sqlite3.
         'PASSWORD': 'root',                  # Not used with sqlite3.
-        'HOST': 'db',                      # Set to empty string for localhost. Not used with sqlite3.
+        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
 }
@@ -143,7 +143,7 @@ TEMPLATE_LOADERS = (
 )
 
 TEMPLATE_DIRS = (
-    '/data/mysite/baiwei/yunwei/templates',
+    os.getcwd() + '/yunwei/templates',
 )
 
 STATIC_URL = '/static/'
@@ -152,10 +152,19 @@ STATIC_PATH = os.path.join( os.path.dirname(__file__) , 'static' )
 DEFAULT_CHARSET = 'utf-8'
 FILE_CHARSET = 'utf-8'
 
+LOGIN_URL = '/yunwei/login/'
 
-#SWAGGER_SETTINGS = {
-#    'JSON_EDITOR': True,
-#    'LOGIN_URL': 'login',
-#    'LOGOUT_URL': 'logout',
-#}
-
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.AllowAny',
+         'rest_framework.permissions.IsAuthenticated',
+         'rest_framework.permissions.IsAdminUser',
+     ),
+    'PAGE_SIZE': 100,
+    'DEFAULT_FILTER_BACKENDS': (
+        'rest_framework.filters.DjangoFilterBackend',
+    ),
+}

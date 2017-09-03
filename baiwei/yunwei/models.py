@@ -12,7 +12,7 @@ class User(models.Model):
 
 class Profile(models.Model):
    name = models.CharField(max_length = 1000)
-   picture = models.ImageField(upload_to = './dist/img')
+   picture = models.ImageField(upload_to = os.getcwd() + '/dist/img')
 
 
 class BLOG(models.Model):

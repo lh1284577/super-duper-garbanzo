@@ -22,7 +22,10 @@ from django.views.generic.edit import CreateView
 from django.views.generic import TemplateView
 from django.views.generic import View
 
-
+#api认证
+from yunwei.permissions import IsOwnerOrReadOnly
+from rest_framework import permissions
+from django.contrib.auth.decorators import login_required
 
 @yunwei.auth.login_check()
 def blog(req):
@@ -45,14 +48,17 @@ class BlogAddView(TemplateView):
  
     template_name = 'adminlte/xheditor-1.2.2/add_blog.html'
     model = BLOG
-    def get(self, req, *args, **kwargs):
-        context = self.get_context_data(**kwargs)                                                                                                        
-        username = req.session['username']
-        context['username'] = username
-        return self.render_to_response(context)
-
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,
+                          IsOwnerOrReadOnly,)
+    #def post(self, req, *args, **kwargs):
+    #    context = self.get_context_data(**kwargs)                                                                                                        
+    #    username = req.session['username']
+    #    context['username'] = username
+    #    return self.render_to_response(context)
     def get_context_data(self, **kwargs):
     	context = super(BlogAddView, self).get_context_data(**kwargs)
+	context['username'] =  self.request.user.is_authenticated
+	print(dir(self.request.user))
     	return context
 
 
