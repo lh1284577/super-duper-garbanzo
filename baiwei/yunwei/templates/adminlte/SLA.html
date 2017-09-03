@@ -1,0 +1,166 @@
+<html class="no-js" lang="en"><!--<![endif]--><head>
+
+    <link rel="stylesheet" type="text/css" href="css/SLA.css">
+
+<body>
+
+<div class="panel-info-middle panel-info">
+                    <h3 class="panel-title">ULE SLA</h3>
+                </div>
+
+<div id="tasks-list-wrapper" data-type="cards"><div id="card-view" class="ui-sortable" data-filter="incomplete">
+
+
+            <div id="card-view-incomplete" style="display: block;">
+                            
+			{% for list,items in JSON.items %}
+                            <div class="card-column named-section 1 ui-droppable ui-sortable-handle" data-id="1">
+                                <div class="card-column-header">{{list}}</div>
+                                <div class="cards connected-cards viewport ui-sortable" style="max-height: 600px;">
+			{% for k,v in items.items %}
+                                    <div class="card has-meta  at-risk" data-id="4">
+                                        <div class="saving-indicator task-status-indicator"></div>
+                                        <div class="retry-save save-item" title="Error saving task. Click to retry"></div>
+                                        <div class="task-details" >{{k}}</div>
+                                        <div class="card-meta">
+                                            <span onclick="window.open('{{v.svn}}')">{{v.svnname}}</span>
+                                        </div>
+                                    </div>
+                                    
+<!--
+                                     <div class="card has-meta  overdue" data-id="5">
+                                        <div class="saving-indicator task-status-indicator"></div>
+                                        <div class="retry-save save-item" title="Error saving task. Click to retry"></div>
+                                        <div class="task-details">值班发布统计</div>
+                                        <div class="card-meta">
+                                            <span class="due-date"><i class="icons8-clock"></i>运维值班发布部署输出记录表</span>
+                                        </div>
+                                    </div>
+-->
+			{% endfor %}
+                                </div>
+                            </div>
+			{% endfor %}
+
+
+        </div>
+</div>
+
+
+
+{% for list,items in JSON.items %}
+<div id="info-panel" style="margin-right:-500">
+                <div class="title">
+                    <span class="close ti-close"></span>
+
+                    <h3></h3>
+                    <div class="button-space"><div id="edit-task" class="main-action button">Edit</div><div class="dropdown-button ">
+            <span class="main-button button">More</span>
+
+            <ul class="dropdown-button-dropdown">
+                
+                <li id="add-file-to-task" class=""><div id="" class="" title="Add New Add File">
+            Add File
+            
+        </div></li>
+                
+                <li id="delete-task" class="danger"><span></span>Delete</li>
+                
+
+            </ul>
+
+
+        </div></div>
+                </div>
+                <div class="nano">
+                    <div class="content"><div class="item-details task-details-alternate  ">
+            <div class="task-content-section">
+                <div class="task-content">
+                    
+                    <div class="task-text">非发布时间紧急上线 / 回退项目</div>
+                </div>
+                <div class="task-description"></div>
+                <div class="task-details-meta">
+                </div>
+                <div class="task-files">
+                </div>
+            </div>
+            <div class="task-timer-section">
+                <hr>
+                
+                <div class="task-timer">
+{% for k,v in items.items %}
+                    <h6 style="color:#56A8FB">
+			1.发布时间,开发需要生产环境紧急上线发布
+                    </h6>
+                    <h6 style="color:#56A8FB">
+			2.非发布时间,开发需要生产环境紧急回退发布
+                    </h6>
+                    <h6 style="color:#56A8FB">
+			3.非发布时间,开发需要生产环境发布定时项目
+                    </h6>
+
+{% endfor %}
+                    <div id="timer" class="hidden">
+
+
+                        <div class="timer-buttons">
+                            <div id="start-timer" class="button green">Start Timer</div>
+                            <div id="stop-timer" class="button dark">Stop Timer</div>
+                            <div id="enter-time" class="">Enter Time</div>
+                        </div>
+                        <div id="inactive-timer"></div>
+                        <div id="elapsed-time"></div>
+                    </div>
+                </div>
+                
+
+
+                <div id="task-time-entries-wrapper">
+                    <h6>Time Entries
+                        <span class="ti-angle-right closed"></span>
+                        <span class="ti-angle-down"></span>
+                    </h6>
+
+                    <div id="task-time-entries" class="hidden"><ul>
+            <li class="header">
+                <div class="time-entry-details">
+                    <div>Start Date</div>
+                    <div>User</div>
+                    <div>Time</div>
+                </div>
+            </li>
+            
+        </ul></div>
+                </div>
+            </div>
+
+
+        </div></div>
+                </div>
+            </div>
+{% endfor %}
+
+</body>
+
+
+
+<script src="//www.w3school.com.cn/jquery/jquery.js"></script>
+<script>
+
+                $('.task-details').click(function(){
+                        if($('#info-panel').css("margin-right")==parseInt(-500)+"px")
+                        { 
+				$('#info-panel').css('margin-right',parseInt(0)+"px");
+                        } 
+                        else
+                        { 
+				$('#info-panel').css('margin-right',parseInt(-500)+"px");
+                        } 
+                        
+                })
+
+
+</script>
+
+

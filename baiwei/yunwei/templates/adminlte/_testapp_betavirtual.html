@@ -1,0 +1,517 @@
+{% extends "adminlte/base.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>AdminLTE 2 | Data Tables</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.6 -->
+  <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="css/ionicons.min.css">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="plugins/datatables/dataTables.bootstrap.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+  <!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+  <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
+
+
+<style>
+.con {
+	height:30px;
+	background:#dd4b39;
+	border-color: #d73925;
+}
+
+.add  {
+    position: fixed;
+    background: rgba(0, 0, 0, 0.58);
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    display:none;
+}
+
+.add > form {
+    background: white;
+    margin: 45px auto;
+    width: 580px;
+    padding: 30px;
+    border-radius: 3px;
+    box-shadow: 0 0 53px rgba(0, 0, 0, 0.15);
+}
+
+.change  {
+    position: fixed;
+    background: rgba(0, 0, 0, 0.58);
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    display:none;
+}
+
+.change > form {
+    background: white;
+    margin: 45px auto;
+    width: 580px;
+    padding: 30px;
+    border-radius: 3px;
+    box-shadow: 0 0 53px rgba(0, 0, 0, 0.15);
+}
+
+
+.del  {
+    position: fixed;
+    background: rgba(0, 0, 0, 0);
+    left: 0;
+    top: 100px;
+    right: 0;
+    bottom: 0;
+    display:none;
+}
+
+.del > form {
+    background: white;
+    margin: 45px auto;
+    width: 580px;
+    padding: 30px;
+    border-radius: 3px;
+    box-shadow: 0 0 53px rgba(0, 0, 0, 0.15);
+}
+
+
+.bad  {
+    position: fixed;
+    background: rgba(0, 0, 0, 0);
+    left: 0;
+    top: 100px;
+    right: 0;
+    bottom: 0;
+}
+
+.bad > form {
+    background: white;
+    margin: 45px auto;
+    width: 580px;
+    padding: 30px;
+    border-radius: 3px;
+    box-shadow: 0 0 53px rgba(0, 0, 0, 0.15);
+    margin-top:300px;
+}
+
+</style>
+
+
+</head>
+<body>
+<div>
+  <!-- Content Wrapper. Contains page content -->
+  <div >
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="box">
+            <div class="box-header">
+              <button  id='tablelist'  style='background-color: #f4f4f4;color: #444;border-color: red;' class="btn btn-success" type='submit'>testapp_betavirtual</button>
+		<button  id=add style='height:30px;' class="btn btn-success submit">添加</button>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <table name='testapp_betavirtual'  id="example1" class="table table-bordered table-striped">
+			<thead><tr>     <th>宿主机</th> <th>宿主机IP</th>       <th>虚拟机主机名</th>       <th>应用环境</th>   <th>IP地址</th>    <th>物理配置</th>     <th>cephfs</th>  <th>备注</th>  <th>操作</th>	</tr></thead><tbody><tr>    <th name=achange1>13151CT1F7FDB2</th>       <th name=achange2>172.25.131.51</th>       <th name=achange3>ct20032</th>       <th name=achange4>BETA</th>       <th name=achange5>172.25.200.32</th>       <th name=achange6>4CPU-16G-500Gdisk</th>       <th name=achange7>无</th>       <th name=achange8>apache</th>       <th><button style='height:30px' id='change1' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='ct20032' class='btn btn-success submit con adel'>删除</button></th></tr><tr>    <th name=achange1>13151CT1F7FDB2</th>       <th name=achange2>172.25.131.51</th>       <th name=achange3>ct20034</th>       <th name=achange4>BETA</th>       <th name=achange5>172.25.200.34</th>       <th name=achange6>4CPU-16G-500Gdisk</th>       <th name=achange7>无</th>       <th name=achange8>tomcat</th>       <th><button style='height:30px' id='change2' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='ct20034' class='btn btn-success submit con adel'>删除</button></th></tr><tr>    <th name=achange1>13151CT1F7FDB2</th>       <th name=achange2>172.25.131.51</th>       <th name=achange3>ct13342</th>       <th name=achange4>BETA</th>       <th name=achange5>172.25.133.42</th>       <th name=achange6>4CPU-8G-300Gdisk</th>       <th name=achange7>无</th>       <th name=achange8>BI</th>       <th><button style='height:30px' id='change3' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='ct13342' class='btn btn-success submit con adel'>删除</button></th></tr><tr>    <th name=achange1>13151CT1F7FDB2</th>       <th name=achange2>172.25.131.51</th>       <th name=achange3>ct20043</th>       <th name=achange4>BETA</th>       <th name=achange5>172.25.200.43</th>       <th name=achange6>4CPU-16G-500Gdisk</th>       <th name=achange7>无</th>       <th name=achange8>tomcat</th>       <th><button style='height:30px' id='change4' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='ct20043' class='btn btn-success submit con adel'>删除</button></th></tr><tr>    <th name=achange1>13151CT1F7FDB2</th>       <th name=achange2>172.25.131.51</th>       <th name=achange3>ct20044</th>       <th name=achange4>BETA</th>       <th name=achange5>172.25.200.44</th>       <th name=achange6>4CPU-16G-500Gdisk</th>       <th name=achange7>无</th>       <th name=achange8>tomcat</th>       <th><button style='height:30px' id='change5' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='ct20044' class='btn btn-success submit con adel'>删除</button></th></tr><tr>    <th name=achange1>13152CT1F6HDB2</th>       <th name=achange2>172.25.131.52</th>       <th name=achange3>ct20036</th>       <th name=achange4>BETA</th>       <th name=achange5>172.25.200.36</th>       <th name=achange6>4CPU-16G-500Gdisk</th>       <th name=achange7>无</th>       <th name=achange8>tomcat</th>       <th><button style='height:30px' id='change6' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='ct20036' class='btn btn-success submit con adel'>删除</button></th></tr><tr>    <th name=achange1>13152CT1F6HDB2</th>       <th name=achange2>172.25.131.52</th>       <th name=achange3>ct20037</th>       <th name=achange4>BETA</th>       <th name=achange5>172.25.200.37</th>       <th name=achange6>4CPU-16G-500Gdisk</th>       <th name=achange7>无</th>       <th name=achange8>tomcat</th>       <th><button style='height:30px' id='change7' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='ct20037' class='btn btn-success submit con adel'>删除</button></th></tr><tr>    <th name=achange1>13152CT1F6HDB2</th>       <th name=achange2>172.25.131.52</th>       <th name=achange3>ct20038</th>       <th name=achange4>BETA</th>       <th name=achange5>172.25.200.38</th>       <th name=achange6>4CPU-16G-500Gdisk</th>       <th name=achange7>无</th>       <th name=achange8>tomcat</th>       <th><button style='height:30px' id='change8' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='ct20038' class='btn btn-success submit con adel'>删除</button></th></tr><tr>    <th name=achange1>13152CT1F6HDB2</th>       <th name=achange2>172.25.131.52</th>       <th name=achange3>ct20039</th>       <th name=achange4>BETA</th>       <th name=achange5>172.25.200.39</th>       <th name=achange6>4CPU-16G-500Gdisk</th>       <th name=achange7>无</th>       <th name=achange8>tomcat</th>       <th><button style='height:30px' id='change9' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='ct20039' class='btn btn-success submit con adel'>删除</button></th></tr><tr>    <th name=achange1>13152CT1F6HDB2</th>       <th name=achange2>172.25.131.52</th>       <th name=achange3>ct20040</th>       <th name=achange4>BETA</th>       <th name=achange5>172.25.200.40</th>       <th name=achange6>4CPU-16G-500Gdisk</th>       <th name=achange7>无</th>       <th name=achange8>tomcat</th>       <th><button style='height:30px' id='change10' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='ct20040' class='btn btn-success submit con adel'>删除</button></th></tr><tr>    <th name=achange1>13152CT1F6HDB2</th>       <th name=achange2>172.25.131.52</th>       <th name=achange3>ct20041</th>       <th name=achange4>BETA</th>       <th name=achange5>172.25.200.41</th>       <th name=achange6>4CPU-16G-500Gdisk</th>       <th name=achange7>无</th>       <th name=achange8>tomcat</th>       <th><button style='height:30px' id='change11' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='ct20041' class='btn btn-success submit con adel'>删除</button></th></tr><tr>    <th name=achange1>13153CT3W1CT92</th>       <th name=achange2>172.25.131.53</th>       <th name=achange3>ct20035</th>       <th name=achange4>BETA</th>       <th name=achange5>172.25.200.35</th>       <th name=achange6>4CPU-16G-500Gdisk</th>       <th name=achange7>无</th>       <th name=achange8>tomcat</th>       <th><button style='height:30px' id='change12' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='ct20035' class='btn btn-success submit con adel'>删除</button></th></tr><tr>    <th name=achange1>13153CT3W1CT92</th>       <th name=achange2>172.25.131.53</th>       <th name=achange3>ct20045</th>       <th name=achange4>BETA</th>       <th name=achange5>172.25.200.45</th>       <th name=achange6>4CPU-16G-500Gdisk</th>       <th name=achange7>无</th>       <th name=achange8>tomcat</th>       <th><button style='height:30px' id='change13' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='ct20045' class='btn btn-success submit con adel'>删除</button></th></tr><tr>    <th name=achange1>13153CT3W1CT92</th>       <th name=achange2>172.25.131.53</th>       <th name=achange3>ct20046</th>       <th name=achange4>BETA</th>       <th name=achange5>172.25.200.46</th>       <th name=achange6>4CPU-16G-500Gdisk</th>       <th name=achange7>无</th>       <th name=achange8>tomcat</th>       <th><button style='height:30px' id='change14' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='ct20046' class='btn btn-success submit con adel'>删除</button></th></tr><tr>    <th name=achange1>13153CT3W1CT92</th>       <th name=achange2>172.25.131.53</th>       <th name=achange3>ct20047</th>       <th name=achange4>BETA</th>       <th name=achange5>172.25.200.47</th>       <th name=achange6>4CPU-16G-500Gdisk</th>       <th name=achange7>无</th>       <th name=achange8>tomcat</th>       <th><button style='height:30px' id='change15' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='ct20047' class='btn btn-success submit con adel'>删除</button></th></tr><tr>    <th name=achange1>13153CT3W1CT92</th>       <th name=achange2>172.25.131.53</th>       <th name=achange3>ct20048</th>       <th name=achange4>BETA</th>       <th name=achange5>172.25.200.48</th>       <th name=achange6>4CPU-16G-500Gdisk</th>       <th name=achange7>无</th>       <th name=achange8>tomcat</th>       <th><button style='height:30px' id='change16' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='ct20048' class='btn btn-success submit con adel'>删除</button></th></tr><tr>    <th name=achange1>13153CT3W1CT92</th>       <th name=achange2>172.25.131.53</th>       <th name=achange3>ct20049</th>       <th name=achange4>BETA</th>       <th name=achange5>172.25.200.49</th>       <th name=achange6>4CPU_8G_500Gdisk</th>       <th name=achange7>无</th>       <th name=achange8>apache</th>       <th><button style='height:30px' id='change17' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='ct20049' class='btn btn-success submit con adel'>删除</button></th></tr><tr>    <th name=achange1>13154CT1F6DDB2</th>       <th name=achange2>172.25.131.54</th>       <th name=achange3>ct20033</th>       <th name=achange4>BETA</th>       <th name=achange5>172.25.200.33</th>       <th name=achange6>4CPU-16G-500Gdisk</th>       <th name=achange7>无</th>       <th name=achange8>tomcat</th>       <th><button style='height:30px' id='change18' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='ct20033' class='btn btn-success submit con adel'>删除</button></th></tr><tr>    <th name=achange1>13154CT1F6DDB2</th>       <th name=achange2>172.25.131.54</th>       <th name=achange3>ct20042</th>       <th name=achange4>BETA</th>       <th name=achange5>172.25.200.42</th>       <th name=achange6>4CPU-16G-500Gdisk</th>       <th name=achange7>无</th>       <th name=achange8>tomcat</th>       <th><button style='height:30px' id='change19' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='ct20042' class='btn btn-success submit con adel'>删除</button></th></tr><tr>    <th name=achange1>13154CT1F6DDB2</th>       <th name=achange2>172.25.131.54</th>       <th name=achange3>ct20134</th>       <th name=achange4>BETA</th>       <th name=achange5>172.25.201.34</th>       <th name=achange6>4CPU-16G-500Gdisk</th>       <th name=achange7>无</th>       <th name=achange8>jboss</th>       <th><button style='height:30px' id='change20' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='ct20134' class='btn btn-success submit con adel'>删除</button></th></tr><tr>    <th name=achange1>13154CT1F6DDB2</th>       <th name=achange2>172.25.131.54</th>       <th name=achange3>ct20135</th>       <th name=achange4>BETA</th>       <th name=achange5>172.25.201.35</th>       <th name=achange6>4CPU-16G-500Gdisk</th>       <th name=achange7>无</th>       <th name=achange8>jboss</th>       <th><button style='height:30px' id='change21' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='ct20135' class='btn btn-success submit con adel'>删除</button></th></tr><tr>    <th name=achange1>13154CT1F6DDB2</th>       <th name=achange2>172.25.131.54</th>       <th name=achange3>ct20137</th>       <th name=achange4>BETA</th>       <th name=achange5>172.25.201.37</th>       <th name=achange6>4CPU-16G-500Gdisk</th>       <th name=achange7>无</th>       <th name=achange8>jboss</th>       <th><button style='height:30px' id='change22' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='ct20137' class='btn btn-success submit con adel'>删除</button></th></tr><tr>    <th name=achange1>13154CT1F6DDB2</th>       <th name=achange2>172.25.131.54</th>       <th name=achange3>ct20051</th>       <th name=achange4>BETA</th>       <th name=achange5>172.25.200.51</th>       <th name=achange6>4CPU_8G_500Gdisk</th>       <th name=achange7>无</th>       <th name=achange8>apache</th>       <th><button style='height:30px' id='change23' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='ct20051' class='btn btn-success submit con adel'>删除</button></th></tr><tr>    <th name=achange1>13155CT7YTGT92</th>       <th name=achange2>172.25.131.55</th>       <th name=achange3>ct20150</th>       <th name=achange4>BETA</th>       <th name=achange5>172.25.201.50</th>       <th name=achange6>4CPU-16G-1000Gdisk</th>       <th name=achange7>无</th>       <th name=achange8>hadoop崔明</th>       <th><button style='height:30px' id='change24' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='ct20150' class='btn btn-success submit con adel'>删除</button></th></tr><tr>    <th name=achange1>13155CT7YTGT92</th>       <th name=achange2>172.25.131.55</th>       <th name=achange3>ct20151</th>       <th name=achange4>BETA</th>       <th name=achange5>172.25.201.51</th>       <th name=achange6>4CPU-16G-1000Gdisk</th>       <th name=achange7>无</th>       <th name=achange8>hadoop崔明</th>       <th><button style='height:30px' id='change25' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='ct20151' class='btn btn-success submit con adel'>删除</button></th></tr><tr>    <th name=achange1>13155CT7YTGT92</th>       <th name=achange2>172.25.131.55</th>       <th name=achange3>ct20152</th>       <th name=achange4>BETA</th>       <th name=achange5>172.25.201.52</th>       <th name=achange6>4CPU-16G-1000Gdisk</th>       <th name=achange7>无</th>       <th name=achange8>hadoop崔明</th>       <th><button style='height:30px' id='change26' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='ct20152' class='btn btn-success submit con adel'>删除</button></th></tr><tr>    <th name=achange1>13155CT7YTGT92</th>       <th name=achange2>172.25.131.55</th>       <th name=achange3>ct20153</th>       <th name=achange4>BETA</th>       <th name=achange5>172.25.201.53</th>       <th name=achange6>4CPU-16G-1000Gdisk</th>       <th name=achange7>无</th>       <th name=achange8>hadoop崔明</th>       <th><button style='height:30px' id='change27' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='ct20153' class='btn btn-success submit con adel'>删除</button></th></tr><tr>    <th name=achange1>13155CT7YTGT92</th>       <th name=achange2>172.25.131.55</th>       <th name=achange3>ct20159</th>       <th name=achange4>BETA</th>       <th name=achange5>172.25.201.59</th>       <th name=achange6>4CPU-16G-1000Gdisk</th>       <th name=achange7>无</th>       <th name=achange8>hadoop崔明</th>       <th><button style='height:30px' id='change28' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='ct20159' class='btn btn-success submit con adel'>删除</button></th></tr><tr>    <th name=achange1>13156CT7YVDT92</th>       <th name=achange2>172.25.131.56</th>       <th name=achange3>ct20154</th>       <th name=achange4>BETA</th>       <th name=achange5>172.25.201.54</th>       <th name=achange6>4CPU_8G_500Gdisk</th>       <th name=achange7>无</th>       <th name=achange8>kafka崔明</th>       <th><button style='height:30px' id='change29' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='ct20154' class='btn btn-success submit con adel'>删除</button></th></tr><tr>    <th name=achange1>13156CT7YVDT92</th>       <th name=achange2>172.25.131.56</th>       <th name=achange3>ct20155</th>       <th name=achange4>BETA</th>       <th name=achange5>172.25.201.55</th>       <th name=achange6>4CPU_8G_500Gdisk</th>       <th name=achange7>无</th>       <th name=achange8>kafka崔明</th>       <th><button style='height:30px' id='change30' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='ct20155' class='btn btn-success submit con adel'>删除</button></th></tr><tr>    <th name=achange1>13156CT7YVDT92</th>       <th name=achange2>172.25.131.56</th>       <th name=achange3>ct20156</th>       <th name=achange4>BETA</th>       <th name=achange5>172.25.201.56</th>       <th name=achange6>4CPU_8G_500Gdisk</th>       <th name=achange7>无</th>       <th name=achange8>kafka崔明</th>       <th><button style='height:30px' id='change31' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='ct20156' class='btn btn-success submit con adel'>删除</button></th></tr><tr>    <th name=achange1>13156CT7YVDT92</th>       <th name=achange2>172.25.131.56</th>       <th name=achange3>ct20157</th>       <th name=achange4>BETA</th>       <th name=achange5>172.25.201.57</th>       <th name=achange6>4CPU_8G_500Gdisk</th>       <th name=achange7>无</th>       <th name=achange8>apache</th>       <th><button style='height:30px' id='change32' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='ct20157' class='btn btn-success submit con adel'>删除</button></th></tr><tr>    <th name=achange1>13156CT7YVDT92</th>       <th name=achange2>172.25.131.56</th>       <th name=achange3>ct20158</th>       <th name=achange4>BETA</th>       <th name=achange5>172.25.201.58</th>       <th name=achange6>2CPU_4G_1000Gdisk</th>       <th name=achange7>无</th>       <th name=achange8>审计日志</th>       <th><button style='height:30px' id='change33' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='ct20158' class='btn btn-success submit con adel'>删除</button></th></tr><tr>    <th name=achange1>13157CT1FBDDB2</th>       <th name=achange2>172.25.131.57</th>       <th name=achange3>ct20160</th>       <th name=achange4>BETA</th>       <th name=achange5>172.25.201.60</th>       <th name=achange6>8CPU_24G_1000Gdisk</th>       <th name=achange7>无</th>       <th name=achange8>oracle</th>       <th><button style='height:30px' id='change34' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='ct20160' class='btn btn-success submit con adel'>删除</button></th></tr><tr>    <th name=achange1>13157CT1FBDDB2</th>       <th name=achange2>172.25.131.57</th>       <th name=achange3>ct20161</th>       <th name=achange4>BETA</th>       <th name=achange5>172.25.201.61</th>       <th name=achange6>8CPU_24G_1000Gdisk</th>       <th name=achange7>无</th>       <th name=achange8>oracle</th>       <th><button style='height:30px' id='change35' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='ct20161' class='btn btn-success submit con adel'>删除</button></th></tr><tr>    <th name=achange1>13157CT1FBDDB2</th>       <th name=achange2>172.25.131.57</th>       <th name=achange3>ct20162</th>       <th name=achange4>BETA</th>       <th name=achange5>172.25.201.62</th>       <th name=achange6>4CPU_16G_1000Gdisk</th>       <th name=achange7>无</th>       <th name=achange8>mysql</th>       <th><button style='height:30px' id='change36' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='ct20162' class='btn btn-success submit con adel'>删除</button></th></tr><tr>    <th name=achange1>13157CT1FBDDB2</th>       <th name=achange2>172.25.131.57</th>       <th name=achange3>ct20163</th>       <th name=achange4>BETA</th>       <th name=achange5>172.25.201.63</th>       <th name=achange6>4CPU_16G_1000Gdisk</th>       <th name=achange7>无</th>       <th name=achange8>mysql</th>       <th><button style='height:30px' id='change37' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='ct20163' class='btn btn-success submit con adel'>删除</button></th></tr><tr>    <th name=achange1>13157CT1FBDDB2</th>       <th name=achange2>172.25.131.57</th>       <th name=achange3>ct20165</th>       <th name=achange4>BETA</th>       <th name=achange5>172.25.201.65</th>       <th name=achange6>4CPU_8G_500Gdisk</th>       <th name=achange7>无</th>       <th name=achange8>windows赵哲峰</th>       <th><button style='height:30px' id='change38' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='ct20165' class='btn btn-success submit con adel'>删除</button></th></tr><tr>    <th name=achange1>13158CT1FB8DB2</th>       <th name=achange2>172.25.131.58</th>       <th name=achange3>ct20052</th>       <th name=achange4>BETA</th>       <th name=achange5>172.25.200.52</th>       <th name=achange6>4CPU-16G-500Gdisk</th>       <th name=achange7>无</th>       <th name=achange8>tomcat</th>       <th><button style='height:30px' id='change39' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='ct20052' class='btn btn-success submit con adel'>删除</button></th></tr><tr>    <th name=achange1>13158CT1FB8DB2</th>       <th name=achange2>172.25.131.58</th>       <th name=achange3>ct20053</th>       <th name=achange4>BETA</th>       <th name=achange5>172.25.200.53</th>       <th name=achange6>4CPU-16G-500Gdisk</th>       <th name=achange7>无</th>       <th name=achange8>tomcat</th>       <th><button style='height:30px' id='change40' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='ct20053' class='btn btn-success submit con adel'>删除</button></th></tr><tr>    <th name=achange1>13158CT1FB8DB2</th>       <th name=achange2>172.25.131.58</th>       <th name=achange3>ct20061</th>       <th name=achange4>BETA</th>       <th name=achange5>172.25.200.61</th>       <th name=achange6>4CPU-8G-300Gdisk</th>       <th name=achange7>无</th>       <th name=achange8>李浩</th>       <th><button style='height:30px' id='change41' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='ct20061' class='btn btn-success submit con adel'>删除</button></th></tr><tr>    <th name=achange1>13162CT512FT92</th>       <th name=achange2>172.25.131.62</th>       <th name=achange3>ct20133</th>       <th name=achange4>BETA</th>       <th name=achange5>172.25.201.33</th>       <th name=achange6>4CPU-16G-500Gdisk</th>       <th name=achange7>无</th>       <th name=achange8>vps-dubbo李迪</th>       <th><button style='height:30px' id='change42' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='ct20133' class='btn btn-success submit con adel'>删除</button></th></tr><tr>    <th name=achange1>13162CT512FT92</th>       <th name=achange2>172.25.131.62</th>       <th name=achange3>ct20138</th>       <th name=achange4>BETA</th>       <th name=achange5>172.25.201.38</th>       <th name=achange6>4CPU-16G-500Gdisk</th>       <th name=achange7>无</th>       <th name=achange8>jboss</th>       <th><button style='height:30px' id='change43' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='ct20138' class='btn btn-success submit con adel'>删除</button></th></tr><tr>    <th name=achange1>13162CT512FT92</th>       <th name=achange2>172.25.131.62</th>       <th name=achange3>ct20139</th>       <th name=achange4>BETA</th>       <th name=achange5>172.25.201.39</th>       <th name=achange6>4CPU-16G-500Gdisk</th>       <th name=achange7>无</th>       <th name=achange8>jboss</th>       <th><button style='height:30px' id='change44' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='ct20139' class='btn btn-success submit con adel'>删除</button></th></tr><tr>    <th name=achange1>13162CT512FT92</th>       <th name=achange2>172.25.131.62</th>       <th name=achange3>ct20140</th>       <th name=achange4>BETA</th>       <th name=achange5>172.25.201.40</th>       <th name=achange6>4CPU-16G-500Gdisk</th>       <th name=achange7>无</th>       <th name=achange8>jboss</th>       <th><button style='height:30px' id='change45' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='ct20140' class='btn btn-success submit con adel'>删除</button></th></tr><tr>    <th name=achange1>13162CT512FT92</th>       <th name=achange2>172.25.131.62</th>       <th name=achange3>ct20141</th>       <th name=achange4>BETA</th>       <th name=achange5>172.25.201.41</th>       <th name=achange6>4CPU-16G-500Gdisk</th>       <th name=achange7>无</th>       <th name=achange8>jboss</th>       <th><button style='height:30px' id='change46' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='ct20141' class='btn btn-success submit con adel'>删除</button></th></tr><tr>    <th name=achange1>13168CT1F3HDB2</th>       <th name=achange2>172.25.131.68</th>       <th name=achange3>ct20136</th>       <th name=achange4>BETA</th>       <th name=achange5>172.25.201.36</th>       <th name=achange6>4CPU-16G-500Gdisk</th>       <th name=achange7>无</th>       <th name=achange8>jboss</th>       <th><button style='height:30px' id='change47' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='ct20136' class='btn btn-success submit con adel'>删除</button></th></tr><tr>    <th name=achange1>13168CT1F3HDB2</th>       <th name=achange2>172.25.131.68</th>       <th name=achange3>ct20142</th>       <th name=achange4>BETA</th>       <th name=achange5>172.25.201.42</th>       <th name=achange6>4CPU-16G-500Gdisk</th>       <th name=achange7>无</th>       <th name=achange8>jboss</th>       <th><button style='height:30px' id='change48' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='ct20142' class='btn btn-success submit con adel'>删除</button></th></tr><tr>    <th name=achange1>13168CT1F3HDB2</th>       <th name=achange2>172.25.131.68</th>       <th name=achange3>ct20143</th>       <th name=achange4>BETA</th>       <th name=achange5>172.25.201.43</th>       <th name=achange6>4CPU-16G-500Gdisk</th>       <th name=achange7>无</th>       <th name=achange8>jboss</th>       <th><button style='height:30px' id='change49' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='ct20143' class='btn btn-success submit con adel'>删除</button></th></tr><tr>    <th name=achange1>13168CT1F3HDB2</th>       <th name=achange2>172.25.131.68</th>       <th name=achange3>ct20144</th>       <th name=achange4>BETA</th>       <th name=achange5>172.25.201.44</th>       <th name=achange6>4CPU-16G-500Gdisk</th>       <th name=achange7>无</th>       <th name=achange8>jboss</th>       <th><button style='height:30px' id='change50' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='ct20144' class='btn btn-success submit con adel'>删除</button></th></tr><tr>    <th name=achange1>13168CT1F3HDB2</th>       <th name=achange2>172.25.131.68</th>       <th name=achange3>ct20145</th>       <th name=achange4>BETA</th>       <th name=achange5>172.25.201.45</th>       <th name=achange6>4CPU-16G-500Gdisk</th>       <th name=achange7>无</th>       <th name=achange8>jboss</th>       <th><button style='height:30px' id='change51' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='ct20145' class='btn btn-success submit con adel'>删除</button></th></tr><tr>    <th name=achange1>13170CT1F4JDB2</th>       <th name=achange2>172.25.131.70</th>       <th name=achange3>ct20132</th>       <th name=achange4>BETA</th>       <th name=achange5>172.25.201.32</th>       <th name=achange6>4CPU-16G-500Gdisk</th>       <th name=achange7>无</th>       <th name=achange8>vps-dubbo李迪</th>       <th><button style='height:30px' id='change52' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='ct20132' class='btn btn-success submit con adel'>删除</button></th></tr><tr>    <th name=achange1>13170CT1F4JDB2</th>       <th name=achange2>172.25.131.70</th>       <th name=achange3>ct20146</th>       <th name=achange4>BETA</th>       <th name=achange5>172.25.201.46</th>       <th name=achange6>4CPU-16G-500Gdisk</th>       <th name=achange7>无</th>       <th name=achange8>jboss</th>       <th><button style='height:30px' id='change53' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='ct20146' class='btn btn-success submit con adel'>删除</button></th></tr><tr>    <th name=achange1>13170CT1F4JDB2</th>       <th name=achange2>172.25.131.70</th>       <th name=achange3>ct20147</th>       <th name=achange4>BETA</th>       <th name=achange5>172.25.201.47</th>       <th name=achange6>4CPU-16G-500Gdisk</th>       <th name=achange7>无</th>       <th name=achange8>jboss</th>       <th><button style='height:30px' id='change54' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='ct20147' class='btn btn-success submit con adel'>删除</button></th></tr><tr>    <th name=achange1>13170CT1F4JDB2</th>       <th name=achange2>172.25.131.70</th>       <th name=achange3>ct20148</th>       <th name=achange4>BETA</th>       <th name=achange5>172.25.201.48</th>       <th name=achange6>4CPU-16G-500Gdisk</th>       <th name=achange7>无</th>       <th name=achange8>jboss</th>       <th><button style='height:30px' id='change55' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='ct20148' class='btn btn-success submit con adel'>删除</button></th></tr><tr>    <th name=achange1>13171CT1F5GDB2</th>       <th name=achange2>172.25.131.71</th>       <th name=achange3>ct13479</th>       <th name=achange4>BETA</th>       <th name=achange5>172.25.134.79</th>       <th name=achange6>8CPU-32G-1Tdisk</th>       <th name=achange7>无</th>       <th name=achange8>大数据黄邵康</th>       <th><button style='height:30px' id='change56' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='ct13479' class='btn btn-success submit con adel'>删除</button></th></tr><tr>    <th name=achange1>13171CT1F5GDB2</th>       <th name=achange2>172.25.131.71</th>       <th name=achange3>ct13480</th>       <th name=achange4>BETA</th>       <th name=achange5>172.25.134.80</th>       <th name=achange6>8CPU-32G-1Tdisk</th>       <th name=achange7>无</th>       <th name=achange8>大数据黄邵康</th>       <th><button style='height:30px' id='change57' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='ct13480' class='btn btn-success submit con adel'>删除</button></th></tr><tr>    <th name=achange1>13171CT1F5GDB2</th>       <th name=achange2>172.25.131.71</th>       <th name=achange3>ct13481</th>       <th name=achange4>BETA</th>       <th name=achange5>172.25.134.81</th>       <th name=achange6>8CPU-32G-1Tdisk</th>       <th name=achange7>无</th>       <th name=achange8>大数据黄邵康</th>       <th><button style='height:30px' id='change58' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='ct13481' class='btn btn-success submit con adel'>删除</button></th></tr><tr>    <th name=achange1>13171CT1F5GDB2</th>       <th name=achange2>172.25.131.71</th>       <th name=achange3>ct13482</th>       <th name=achange4>BETA</th>       <th name=achange5>172.25.134.82</th>       <th name=achange6>8CPU-32G-1Tdisk</th>       <th name=achange7>无</th>       <th name=achange8>大数据黄邵康</th>       <th><button style='height:30px' id='change59' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='ct13482' class='btn btn-success submit con adel'>删除</button></th></tr><tr>    <th name=achange1>13172CT1F4FDB2</th>       <th name=achange2>172.25.131.72</th>       <th name=achange3>ct13483</th>       <th name=achange4>BETA</th>       <th name=achange5>172.25.134.83</th>       <th name=achange6>8CPU-32G-1Tdisk</th>       <th name=achange7>无</th>       <th name=achange8>大数据黄邵康</th>       <th><button style='height:30px' id='change60' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='ct13483' class='btn btn-success submit con adel'>删除</button></th></tr><tr>    <th name=achange1>13172CT1F4FDB2</th>       <th name=achange2>172.25.131.72</th>       <th name=achange3>ct13484</th>       <th name=achange4>BETA</th>       <th name=achange5>172.25.134.84</th>       <th name=achange6>8CPU-32G-1Tdisk</th>       <th name=achange7>无</th>       <th name=achange8>大数据黄邵康</th>       <th><button style='height:30px' id='change61' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='ct13484' class='btn btn-success submit con adel'>删除</button></th></tr><tr>    <th name=achange1>13172CT1F4FDB2</th>       <th name=achange2>172.25.131.72</th>       <th name=achange3>ct13485</th>       <th name=achange4>BETA</th>       <th name=achange5>172.25.134.85</th>       <th name=achange6>8CPU-32G-1Tdisk</th>       <th name=achange7>无</th>       <th name=achange8>大数据黄邵康</th>       <th><button style='height:30px' id='change62' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='ct13485' class='btn btn-success submit con adel'>删除</button></th></tr><tr>    <th name=achange1>13172CT1F4FDB2</th>       <th name=achange2>172.25.131.72</th>       <th name=achange3>ct13486</th>       <th name=achange4>BETA</th>       <th name=achange5>172.25.134.86</th>       <th name=achange6>8CPU-16G-300Gdisk</th>       <th name=achange7>无</th>       <th name=achange8>大数据黄邵康</th>       <th><button style='height:30px' id='change63' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='ct13486' class='btn btn-success submit con adel'>删除</button></th></tr><tr>    <th name=achange1>13173CT1F3GDB2</th>       <th name=achange2>172.25.131.73</th>       <th name=achange3>ct13487</th>       <th name=achange4>BETA</th>       <th name=achange5>172.25.134.87</th>       <th name=achange6>8CPU-16G-300Gdisk</th>       <th name=achange7>无</th>       <th name=achange8>大数据黄邵康</th>       <th><button style='height:30px' id='change64' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='ct13487' class='btn btn-success submit con adel'>删除</button></th></tr><tr>    <th name=achange1>13173CT1F3GDB2</th>       <th name=achange2>172.25.131.73</th>       <th name=achange3>ct13488</th>       <th name=achange4>BETA</th>       <th name=achange5>172.25.134.88</th>       <th name=achange6>8CPU-16G-300Gdisk</th>       <th name=achange7>无</th>       <th name=achange8>大数据黄邵康</th>       <th><button style='height:30px' id='change65' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='ct13488' class='btn btn-success submit con adel'>删除</button></th></tr><tr>    <th name=achange1>13173CT1F3GDB2</th>       <th name=achange2>172.25.131.73</th>       <th name=achange3>ct13489</th>       <th name=achange4>BETA</th>       <th name=achange5>172.25.134.89</th>       <th name=achange6>8CPU-32G-500Gdisk</th>       <th name=achange7>无</th>       <th name=achange8>大数据黄邵康</th>       <th><button style='height:30px' id='change66' class='btn btn-success submit achange'>编辑</button>&nbsp<button id='ct13489' class='btn btn-success submit con adel'>删除</button></th></tr><tbody><tfoot><tr>     <th>宿主机</th> <th>宿主机IP</th>       <th>虚拟机主机名</th>       <th>应用环境</th>   <th>IP地址</th>    <th>物理配置</th>     <th>cephfs</th>  <th>备注</th>  <th>操作</th>	</tr></tfoot>
+              </table>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Create the tabs -->
+    <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+      <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
+      <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
+    </ul>
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <!-- Home tab content -->
+      <div class="tab-pane" id="control-sidebar-home-tab">
+        <h3 class="control-sidebar-heading">Recent Activity</h3>
+        <ul class="control-sidebar-menu">
+          <li>
+            <a href="javascript:void(0)">
+              <i class="menu-icon fa fa-birthday-cake bg-red"></i>
+
+              <div class="menu-info">
+                <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
+
+                <p>Will be 23 on April 24th</p>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <i class="menu-icon fa fa-user bg-yellow"></i>
+
+              <div class="menu-info">
+                <h4 class="control-sidebar-subheading">Frodo Updated His Profile</h4>
+
+                <p>New phone +1(800)555-1234</p>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <i class="menu-icon fa fa-envelope-o bg-light-blue"></i>
+
+              <div class="menu-info">
+                <h4 class="control-sidebar-subheading">Nora Joined Mailing List</h4>
+
+                <p>nora@example.com</p>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <i class="menu-icon fa fa-file-code-o bg-green"></i>
+
+              <div class="menu-info">
+                <h4 class="control-sidebar-subheading">Cron Job 254 Executed</h4>
+
+                <p>Execution time 5 seconds</p>
+              </div>
+            </a>
+          </li>
+        </ul>
+        <!-- /.control-sidebar-menu -->
+
+        <h3 class="control-sidebar-heading">Tasks Progress</h3>
+        <ul class="control-sidebar-menu">
+          <li>
+            <a href="javascript:void(0)">
+              <h4 class="control-sidebar-subheading">
+                Custom Template Design
+                <span class="label label-danger pull-right">70%</span>
+              </h4>
+
+              <div class="progress progress-xxs">
+                <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <h4 class="control-sidebar-subheading">
+                Update Resume
+                <span class="label label-success pull-right">95%</span>
+              </h4>
+
+              <div class="progress progress-xxs">
+                <div class="progress-bar progress-bar-success" style="width: 95%"></div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <h4 class="control-sidebar-subheading">
+                Laravel Integration
+                <span class="label label-warning pull-right">50%</span>
+              </h4>
+
+              <div class="progress progress-xxs">
+                <div class="progress-bar progress-bar-warning" style="width: 50%"></div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <h4 class="control-sidebar-subheading">
+                Back End Framework
+                <span class="label label-primary pull-right">68%</span>
+              </h4>
+
+              <div class="progress progress-xxs">
+                <div class="progress-bar progress-bar-primary" style="width: 68%"></div>
+              </div>
+            </a>
+          </li>
+        </ul>
+        <!-- /.control-sidebar-menu -->
+
+      </div>
+      <!-- /.tab-pane -->
+      <!-- Stats tab content -->
+      <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
+      <!-- /.tab-pane -->
+      <!-- Settings tab content -->
+      <div class="tab-pane" id="control-sidebar-settings-tab">
+        <form method="post">
+          <h3 class="control-sidebar-heading">General Settings</h3>
+
+          <div class="form-group">
+            <label class="control-sidebar-subheading">
+              Report panel usage
+              <input type="checkbox" class="pull-right" checked>
+            </label>
+
+            <p>
+              Some information about this general settings option
+            </p>
+          </div>
+          <!-- /.form-group -->
+
+          <div class="form-group">
+            <label class="control-sidebar-subheading">
+              Allow mail redirect
+              <input type="checkbox" class="pull-right" checked>
+            </label>
+
+            <p>
+              Other sets of options are available
+            </p>
+          </div>
+          <!-- /.form-group -->
+
+          <div class="form-group">
+            <label class="control-sidebar-subheading">
+              Expose author name in posts
+              <input type="checkbox" class="pull-right" checked>
+            </label>
+
+            <p>
+              Allow the user to show his name in blog posts
+            </p>
+          </div>
+          <!-- /.form-group -->
+
+          <h3 class="control-sidebar-heading">Chat Settings</h3>
+
+          <div class="form-group">
+            <label class="control-sidebar-subheading">
+              Show me as online
+              <input type="checkbox" class="pull-right" checked>
+            </label>
+          </div>
+          <!-- /.form-group -->
+
+          <div class="form-group">
+            <label class="control-sidebar-subheading">
+              Turn off notifications
+              <input type="checkbox" class="pull-right">
+            </label>
+          </div>
+          <!-- /.form-group -->
+
+          <div class="form-group">
+            <label class="control-sidebar-subheading">
+              Delete chat history
+              <a href="javascript:void(0)" class="text-red pull-right"><i class="fa fa-trash-o"></i></a>
+            </label>
+          </div>
+          <!-- /.form-group -->
+        </form>
+      </div>
+      <!-- /.tab-pane -->
+    </div>
+  </aside>
+  <!-- /.control-sidebar -->
+  <!-- Add the sidebar's background. This div must be placed
+       immediately after the control sidebar -->
+  <div class="control-sidebar-bg"></div>
+
+
+
+
+        <script src="jquery.js"></script>
+
+                        <div class="add">
+                            <form class="form-horizontal" method='get' action="/admin/tableAdd_testapp_betavirtual">
+                                <fieldset>
+                                        <div class="box-body">
+
+
+						<div class='form-group'><label class='col-md-4 control-label' for='name.first' >宿主机</label><div class='col-md-6'><input id='name.first' name='add1' type='text' placeholder='' class='form-control input-md' required='' value=''></div></div><div class='form-group'><label class='col-md-4 control-label' for='name.first' >宿主机IP</label><div class='col-md-6'><input id='name.first' name='add2' type='text' placeholder='' class='form-control input-md' required='' value=''></div></div><div class='form-group'><label class='col-md-4 control-label' for='name.first' >虚拟机主机名</label><div class='col-md-6'><input id='name.first' name='add3' type='text' placeholder='' class='form-control input-md' required='' value=''></div></div><div class='form-group'><label class='col-md-4 control-label' for='name.first' >应用环境</label><div class='col-md-6'><input id='name.first' name='add4' type='text' placeholder='' class='form-control input-md' required='' value=''></div></div><div class='form-group'><label class='col-md-4 control-label' for='name.first' >IP地址</label><div class='col-md-6'><input id='name.first' name='add5' type='text' placeholder='' class='form-control input-md' required='' value=''></div></div><div class='form-group'><label class='col-md-4 control-label' for='name.first' >物理配置</label><div class='col-md-6'><input id='name.first' name='add6' type='text' placeholder='' class='form-control input-md' required='' value=''></div></div><div class='form-group'><label class='col-md-4 control-label' for='name.first' >cephfs</label><div class='col-md-6'><input id='name.first' name='add7' type='text' placeholder='' class='form-control input-md' required='' value=''></div></div><div class='form-group'><label class='col-md-4 control-label' for='name.first' >备注</label><div class='col-md-6'><input id='name.first' name='add8' type='text' placeholder='' class='form-control input-md' required='' value=''></div></div>
+					
+                                        </div>
+					<input style='display:none' name=File  value='testapp_betavirtual'></input>
+                                <!-- Button (Double) -->
+
+					<div class="form-group">
+					<label class="col-md-4 control-label" for="cancel"></label>
+                                  		<div  class="col-md-6">
+                                  		  <button  id="canceladd" style='background-color: #f4f4f4;color: #444;border-color: #f4f4f4;' class="btn btn-success cancel">cancel</button>
+                                  		  <button  id="addsubmit" type='submit' class="btn btn-success submit">commit</button>
+                                  		</div>
+                                  	</div>
+                                </fieldset>
+                            </form>
+                        </div>
+
+
+                        <div class='change'>
+                            <form class='form-horizontal' method='get' action="/admin/editTable_testapp_betavirtual">
+                                <fieldset>
+                                     <div class='box-box'>
+						<div class='form-group'><label class='col-md-4 control-label' for='name.first' >宿主机</label><div class='col-md-6'><input id='name.first' name='add1' type='text' placeholder='' class='form-control input-md' required='' value=''></div></div><div class='form-group'><label class='col-md-4 control-label' for='name.first' >宿主机IP</label><div class='col-md-6'><input id='name.first' name='add2' type='text' placeholder='' class='form-control input-md' required='' value=''></div></div><div class='form-group'><label class='col-md-4 control-label' for='name.first' >虚拟机主机名</label><div class='col-md-6'><input id='name.first' name='add3' type='text' placeholder='' class='form-control input-md' required='' value=''></div></div><div class='form-group'><label class='col-md-4 control-label' for='name.first' >应用环境</label><div class='col-md-6'><input id='name.first' name='add4' type='text' placeholder='' class='form-control input-md' required='' value=''></div></div><div class='form-group'><label class='col-md-4 control-label' for='name.first' >IP地址</label><div class='col-md-6'><input id='name.first' name='add5' type='text' placeholder='' class='form-control input-md' required='' value=''></div></div><div class='form-group'><label class='col-md-4 control-label' for='name.first' >物理配置</label><div class='col-md-6'><input id='name.first' name='add6' type='text' placeholder='' class='form-control input-md' required='' value=''></div></div><div class='form-group'><label class='col-md-4 control-label' for='name.first' >cephfs</label><div class='col-md-6'><input id='name.first' name='add7' type='text' placeholder='' class='form-control input-md' required='' value=''></div></div><div class='form-group'><label class='col-md-4 control-label' for='name.first' >备注</label><div class='col-md-6'><input id='name.first' name='add8' type='text' placeholder='' class='form-control input-md' required='' value=''></div></div>
+                                  	</div>
+					<input style='display:none' name=File  value='testapp_betavirtual'></input>
+                                        <div class="form-group">
+                                        <label class="col-md-4 control-label" for="cancel"></label>
+                                                <div  class="col-md-6">
+                                                  <button  id="cancelchange" style='background-color: #f4f4f4;color: #444;border-color: #f4f4f4;' class="btn btn-success cancel" onclick="return false">cancel</button>
+                                                  <button  type='submit' id="changesubmit" class="btn btn-success">commit</button>
+                                                </div>
+                                        </div>
+                                     </div>
+                                </fieldset>
+                            </form>
+                        </div>
+
+
+
+
+                        <div class="del">
+                            <form class="form-horizontal" >
+                                <fieldset>
+                                	<div class="form-group">
+                                	  <div class="col-md-6">
+                                	  <input style='display:none' id="name.last"  type="text"  class="form-control input-md" required="" value="">
+                                	  </div>
+                                	</div>
+                                  <div class="box-body">
+					<legend align="center">确认是否删除?</legend>
+					<div class="form-group">
+                                        	<label class="col-md-4 control-label" for="cancel"></label>
+                                  		<div  class="col-md-6">
+                                    			<button  id="canceldel" style='background-color: #f4f4f4;color: #444;border-color: #f4f4f4;' class="btn btn-success cancel" >cancel</button>
+                                    			<button  id="delsubmit" class="btn btn-success" >commit</button>
+                                  		</div>
+                                  	</div>
+                                  </div>
+                                </fieldset>
+                            </form>
+                        </div>
+
+                        <div  style='display:{{STATUS}}' class="bad">
+                            <form class="form-horizontal" >
+                                <fieldset>
+                                	<div class="form-group">
+                                	  <div class="col-md-6">
+                                	  <input style='display:none' id="name.last"  type="text"  class="form-control input-md" required="" value="">
+                                	  </div>
+                                	</div>
+                                  <div class="box-body">
+					<legend align="center">信息已存在</legend>
+					<div class="form-group">
+                                        	<label class="col-md-4 control-label" for="cancel"></label>
+                                  		<div style="margin-left:30px" class="col-md-6">
+                                    			<button  id="cancelbad" style='background-color: #f4f4f4;color: #444;border-color: #f4f4f4;' class="btn btn-success cancel" >cancel</button>
+                                  		</div>
+                                  	</div>
+                                  </div>
+                                </fieldset>
+                            </form>
+                        </div>
+
+
+</div>
+<!-- ./wrapper -->
+
+
+{%block jsdeploylist%}
+<!-- Bootstrap 3.3.6 -->
+<!-- DataTables -->
+<script src="plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="plugins/datatables/dataTables.bootstrap.min.js"></script>
+<!-- SlimScroll -->
+<script src="plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<!-- FastClick -->
+<script src="plugins/fastclick/fastclick.js"></script>
+<!-- AdminLTE App -->
+<!-- page script -->
+{%endblock%}
+<!-- page script -->
+<script>
+  $(function () {
+    $("#example1").DataTable();
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false
+    });
+  });
+
+  $('#add').click(function(){
+              $('.add').toggleClass('show');
+  })
+
+  $('#tablelist').click(function(){
+		window.location.href="/admin/Table";
+  })
+  $('#canceladd').click(function(){
+              $('.add').toggleClass('show');
+  })
+
+  $('.achange').click(function(){
+              $($(this).parents().children('th')).each(function(i,e){
+				$($(".box-box input").get(i)).val($(this).text())
+              });
+              $('.change').toggleClass('show');
+  })
+  $('#cancelchange').click(function(){
+              $('.change').toggleClass('show');
+  })
+
+  $('.adel').click(function(){
+              var a=($(this).attr("id"));
+              var b=($('#example1').attr("name"));
+              $('.del').toggleClass('show');
+                        $("#delsubmit").click(function(){
+                                window.location.href="/admin/delserver_"+b+"?hostname="+a;
+                        });
+  })
+
+
+  $('#cancelbad').click(function(){
+              $('.bad').toggleClass('hide');
+  })
+
+
+  $('#canceldel').click(function(){
+              $('.del').toggleClass('show');
+  })
+
+</script>
+
+
+</body>
+
+</html>
+
+
+
+
+
+
+{%endblock%}

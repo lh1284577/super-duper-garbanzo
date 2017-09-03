@@ -1,0 +1,517 @@
+{% extends "adminlte/base.html" %}
+{% block content %}
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>AdminLTE 2 | Data Tables</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.6 -->
+  <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="css/ionicons.min.css">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="plugins/datatables/dataTables.bootstrap.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+  <!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+  <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
+
+
+<style>
+.con {
+	height:30px;
+	background:#dd4b39;
+	border-color: #d73925;
+}
+
+.add  {
+    position: fixed;
+    background: rgba(0, 0, 0, 0.58);
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    display:none;
+}
+
+.add > form {
+    background: white;
+    margin: 45px auto;
+    width: 580px;
+    padding: 30px;
+    border-radius: 3px;
+    box-shadow: 0 0 53px rgba(0, 0, 0, 0.15);
+}
+
+.change  {
+    position: fixed;
+    background: rgba(0, 0, 0, 0.58);
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    display:none;
+}
+
+.change > form {
+    background: white;
+    margin: 45px auto;
+    width: 580px;
+    padding: 30px;
+    border-radius: 3px;
+    box-shadow: 0 0 53px rgba(0, 0, 0, 0.15);
+}
+
+
+.del  {
+    position: fixed;
+    background: rgba(0, 0, 0, 0);
+    left: 0;
+    top: 100px;
+    right: 0;
+    bottom: 0;
+    display:none;
+}
+
+.del > form {
+    background: white;
+    margin: 45px auto;
+    width: 580px;
+    padding: 30px;
+    border-radius: 3px;
+    box-shadow: 0 0 53px rgba(0, 0, 0, 0.15);
+}
+
+
+.bad  {
+    position: fixed;
+    background: rgba(0, 0, 0, 0);
+    left: 0;
+    top: 100px;
+    right: 0;
+    bottom: 0;
+}
+
+.bad > form {
+    background: white;
+    margin: 45px auto;
+    width: 580px;
+    padding: 30px;
+    border-radius: 3px;
+    box-shadow: 0 0 53px rgba(0, 0, 0, 0.15);
+    margin-top:300px;
+}
+
+</style>
+<script type="text/javascript">
+	function go(args1,args2){
+		window.location.href="/admin/delcontainer?ip=args1&container=args2";
+}
+</script>
+
+</head>
+<body>
+<div>
+  <!-- Content Wrapper. Contains page content -->
+  <div >
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="box">
+            <div class="box-header">
+              <button  id='tablelist'  style='background-color: #f4f4f4;color: #444;border-color: red;' class="btn btn-success" type='submit'>{Table}</button>
+		<button  id=add style='height:30px;' class="btn btn-success submit">添加</button>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <table name='{Table}'  id="example1" class="table table-bordered table-striped">
+			{item}
+              </table>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Create the tabs -->
+    <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+      <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
+      <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
+    </ul>
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <!-- Home tab content -->
+      <div class="tab-pane" id="control-sidebar-home-tab">
+        <h3 class="control-sidebar-heading">Recent Activity</h3>
+        <ul class="control-sidebar-menu">
+          <li>
+            <a href="javascript:void(0)">
+              <i class="menu-icon fa fa-birthday-cake bg-red"></i>
+
+              <div class="menu-info">
+                <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
+
+                <p>Will be 23 on April 24th</p>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <i class="menu-icon fa fa-user bg-yellow"></i>
+
+              <div class="menu-info">
+                <h4 class="control-sidebar-subheading">Frodo Updated His Profile</h4>
+
+                <p>New phone +1(800)555-1234</p>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <i class="menu-icon fa fa-envelope-o bg-light-blue"></i>
+
+              <div class="menu-info">
+                <h4 class="control-sidebar-subheading">Nora Joined Mailing List</h4>
+
+                <p>nora@example.com</p>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <i class="menu-icon fa fa-file-code-o bg-green"></i>
+
+              <div class="menu-info">
+                <h4 class="control-sidebar-subheading">Cron Job 254 Executed</h4>
+
+                <p>Execution time 5 seconds</p>
+              </div>
+            </a>
+          </li>
+        </ul>
+        <!-- /.control-sidebar-menu -->
+
+        <h3 class="control-sidebar-heading">Tasks Progress</h3>
+        <ul class="control-sidebar-menu">
+          <li>
+            <a href="javascript:void(0)">
+              <h4 class="control-sidebar-subheading">
+                Custom Template Design
+                <span class="label label-danger pull-right">70%</span>
+              </h4>
+
+              <div class="progress progress-xxs">
+                <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <h4 class="control-sidebar-subheading">
+                Update Resume
+                <span class="label label-success pull-right">95%</span>
+              </h4>
+
+              <div class="progress progress-xxs">
+                <div class="progress-bar progress-bar-success" style="width: 95%"></div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <h4 class="control-sidebar-subheading">
+                Laravel Integration
+                <span class="label label-warning pull-right">50%</span>
+              </h4>
+
+              <div class="progress progress-xxs">
+                <div class="progress-bar progress-bar-warning" style="width: 50%"></div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <h4 class="control-sidebar-subheading">
+                Back End Framework
+                <span class="label label-primary pull-right">68%</span>
+              </h4>
+
+              <div class="progress progress-xxs">
+                <div class="progress-bar progress-bar-primary" style="width: 68%"></div>
+              </div>
+            </a>
+          </li>
+        </ul>
+        <!-- /.control-sidebar-menu -->
+
+      </div>
+      <!-- /.tab-pane -->
+      <!-- Stats tab content -->
+      <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
+      <!-- /.tab-pane -->
+      <!-- Settings tab content -->
+      <div class="tab-pane" id="control-sidebar-settings-tab">
+        <form method="post">
+          <h3 class="control-sidebar-heading">General Settings</h3>
+
+          <div class="form-group">
+            <label class="control-sidebar-subheading">
+              Report panel usage
+              <input type="checkbox" class="pull-right" checked>
+            </label>
+
+            <p>
+              Some information about this general settings option
+            </p>
+          </div>
+          <!-- /.form-group -->
+
+          <div class="form-group">
+            <label class="control-sidebar-subheading">
+              Allow mail redirect
+              <input type="checkbox" class="pull-right" checked>
+            </label>
+
+            <p>
+              Other sets of options are available
+            </p>
+          </div>
+          <!-- /.form-group -->
+
+          <div class="form-group">
+            <label class="control-sidebar-subheading">
+              Expose author name in posts
+              <input type="checkbox" class="pull-right" checked>
+            </label>
+
+            <p>
+              Allow the user to show his name in blog posts
+            </p>
+          </div>
+          <!-- /.form-group -->
+
+          <h3 class="control-sidebar-heading">Chat Settings</h3>
+
+          <div class="form-group">
+            <label class="control-sidebar-subheading">
+              Show me as online
+              <input type="checkbox" class="pull-right" checked>
+            </label>
+          </div>
+          <!-- /.form-group -->
+
+          <div class="form-group">
+            <label class="control-sidebar-subheading">
+              Turn off notifications
+              <input type="checkbox" class="pull-right">
+            </label>
+          </div>
+          <!-- /.form-group -->
+
+          <div class="form-group">
+            <label class="control-sidebar-subheading">
+              Delete chat history
+              <a href="javascript:void(0)" class="text-red pull-right"><i class="fa fa-trash-o"></i></a>
+            </label>
+          </div>
+          <!-- /.form-group -->
+        </form>
+      </div>
+      <!-- /.tab-pane -->
+    </div>
+  </aside>
+  <!-- /.control-sidebar -->
+  <!-- Add the sidebar's background. This div must be placed
+       immediately after the control sidebar -->
+  <div class="control-sidebar-bg"></div>
+
+
+
+
+        <script src="jquery.js"></script>
+
+                        <div class="add">
+                            <form class="form-horizontal" method='get' action="/admin/tableAdd_{Table}">
+                                <fieldset>
+                                        <div class="box-body">
+
+
+						{ADD}
+					
+                                        </div>
+					<input style='display:none' name=File  value='{Table}'></input>
+                                <!-- Button (Double) -->
+
+					<div class="form-group">
+					<label class="col-md-4 control-label" for="cancel"></label>
+                                  		<div  class="col-md-6">
+                                  		  <button  id="canceladd" style='background-color: #f4f4f4;color: #444;border-color: #f4f4f4;' class="btn btn-success cancel">cancel</button>
+                                  		  <button  id="addsubmit" type='submit' class="btn btn-success submit">commit</button>
+                                  		</div>
+                                  	</div>
+                                </fieldset>
+                            </form>
+                        </div>
+
+
+                        <div class='change'>
+                            <form class='form-horizontal' method='get' action="/admin/editTable_{Table}">
+                                <fieldset>
+                                     <div class='box-box'>
+						{CHANGE}
+                                  	</div>
+					<input style='display:none' name=File  value='{Table}'></input>
+                                        <div class="form-group">
+                                        <label class="col-md-4 control-label" for="cancel"></label>
+                                                <div  class="col-md-6">
+                                                  <button  id="cancelchange" style='background-color: #f4f4f4;color: #444;border-color: #f4f4f4;' class="btn btn-success cancel" onclick="return false">cancel</button>
+                                                  <button  type='submit' id="changesubmit" class="btn btn-success">commit</button>
+                                                </div>
+                                        </div>
+                                     </div>
+                                </fieldset>
+                            </form>
+                        </div>
+
+
+
+
+                        <div class="del">
+                            <form class="form-horizontal" >
+                                <fieldset>
+                                	<div class="form-group">
+                                	  <div class="col-md-6">
+                                	  <input style='display:none' id="name.last"  type="text"  class="form-control input-md" required="" value="">
+                                	  </div>
+                                	</div>
+                                  <div class="box-body">
+					<legend align="center">确认是否删除?</legend>
+					<div class="form-group">
+                                        	<label class="col-md-4 control-label" for="cancel"></label>
+                                  		<div  class="col-md-6">
+                                    			<button  id="canceldel" style='background-color: #f4f4f4;color: #444;border-color: #f4f4f4;' class="btn btn-success cancel" >cancel</button>
+                                    			<button  id="delsubmit" class="btn btn-success" >commit</button>
+                                  		</div>
+                                  	</div>
+                                  </div>
+                                </fieldset>
+                            </form>
+                        </div>
+
+                        <div  style='display:{{STATUS}}' class="bad">
+                            <form class="form-horizontal" >
+                                <fieldset>
+                                	<div class="form-group">
+                                	  <div class="col-md-6">
+                                	  <input style='display:none' id="name.last"  type="text"  class="form-control input-md" required="" value="">
+                                	  </div>
+                                	</div>
+                                  <div class="box-body">
+					<legend align="center">信息已存在</legend>
+					<div class="form-group">
+                                        	<label class="col-md-4 control-label" for="cancel"></label>
+                                  		<div style="margin-left:30px" class="col-md-6">
+                                    			<button  id="cancelbad" style='background-color: #f4f4f4;color: #444;border-color: #f4f4f4;' class="btn btn-success cancel" >cancel</button>
+                                  		</div>
+                                  	</div>
+                                  </div>
+                                </fieldset>
+                            </form>
+                        </div>
+
+
+</div>
+<!-- ./wrapper -->
+
+
+{%block jsdeploylist%}
+<!-- Bootstrap 3.3.6 -->
+<!-- DataTables -->
+<script src="plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="plugins/datatables/dataTables.bootstrap.min.js"></script>
+<!-- SlimScroll -->
+<script src="plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<!-- FastClick -->
+<script src="plugins/fastclick/fastclick.js"></script>
+<!-- AdminLTE App -->
+<!-- page script -->
+{%endblock%}
+<!-- page script -->
+<script>
+  $(function () {
+    $("#example1").DataTable();
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false
+    });
+  });
+
+  $('#add').click(function(){
+              $('.add').toggleClass('show');
+  })
+
+  $('#tablelist').click(function(){
+		window.location.href="/admin/Table";
+  })
+  $('#canceladd').click(function(){
+              $('.add').toggleClass('show');
+  })
+
+  $('.achange').click(function(){
+              $($(this).parents().children('th')).each(function(i,e){
+				$($(".box-box input").get(i)).val($(this).text())
+              });
+              $('.change').toggleClass('show');
+  })
+  $('#cancelchange').click(function(){
+              $('.change').toggleClass('show');
+  })
+
+  $('.adel').click(function(){
+		var AAA=$(this).attr("id");
+                $('.del').toggleClass('show');
+                        $("#delsubmit").click(function(){
+				alert(AAA);
+                        });
+  })
+
+
+  $('#cancelbad').click(function(){
+              $('.bad').toggleClass('hide');
+  })
+
+
+  $('#canceldel').click(function(){
+              $('.del').toggleClass('show');
+  })
+
+</script>
+
+
+</body>
+
+
+
+
+
+
+{%endblock%}

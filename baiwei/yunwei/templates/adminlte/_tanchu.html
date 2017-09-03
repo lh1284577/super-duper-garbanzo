@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+
+<link rel="stylesheet" href="http://stephanwagner.me//libraries/jBox-0.3.2/Source/jBox.css">
+<link rel="stylesheet" href="http://stephanwagner.me//css/default.css">
+
+
+<script src="http://code.jquery.com/jquery-2.2.2.min.js"></script>
+<div class="demo-button demo-button-notice demo-button-click noselect" id="demoN4"><span class="jBox-notice-text">Click me!</span></div>
+
+
+
+<script src="http://stephanwagner.me//libraries/jBox-0.3.2/Source/jBox.min.js"></script>
+<script>
+$(document).ready(function() {
+	var colorsN4 = ['black', 'red', 'green', 'blue', 'yellow'];
+	var currentColorN4 = 0;
+	$('#demoN4').click(function() {
+		new jBox('Notice', {
+			autoClose: 10000,
+			attributes: {
+				x: 'right',
+				y: 'bottom'
+			},
+			stack: false,
+			animation: {open: 'tada', close: 'zoomIn'},
+			title: 'xi1111111!',
+			content: 'Open another notice to close me!',
+			onInit: function() {
+				this.options.color = colorsN4[currentColorN4];
+				currentColorN4++;
+				(currentColorN4 >= colorsN4.length) && (currentColorN4 = 0);
+			},
+		});
+	});
+	
+});
+</script>
+</body>
+</html>

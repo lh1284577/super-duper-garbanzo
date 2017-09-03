@@ -1,5 +1,5 @@
 django:
-  image: lh1284577/django:20170826
+  image: lh1284577/django:20170903
   ports:
     - 8000:8000
   volumes:

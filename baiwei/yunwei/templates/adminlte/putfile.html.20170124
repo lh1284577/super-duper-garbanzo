@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+{% extends "adminlte/base.html" %}
+{% block content %}
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>AdminLTE 2 | General Form Elements</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.6 -->
+  <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+  <!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+  <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
+
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div>
+
+
+  <!-- Content Wrapper. Contains page content -->
+  <div >
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        上传文件	
+        <small>147.240服务器</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="/admin"><i class="fa fa-dashboard"></i> Home</a></li>
+	<li><a href="#">其他</a></li>
+        <li class="active">文件上传</li>
+      </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <!-- left column -->
+        <div class="col-md-6">
+          <!-- general form elements -->
+          <div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">基本信息</h3>
+            </div>
+            <form  enctype="multipart/form-data" name='form' role="form" method="POST"  action="putfile">
+		{% csrf_token %}
+                <div class="form-group">
+                  <label for="fileToUpload">File input</label>
+                  <input type="file" name='Picture' id="fileToUpload" onchange="fileSelected();" >
+
+                  <p style='color:red' class="help-block"> 
+保存地址：/data/postmall/apache/software</p>
+                </div>
+
+    <div id="fileName"></div>
+    <div id="fileSize"></div>
+    <div id="fileType"></div>
+
+              </div>
+              <!-- /.box-body -->
+
+              <div class="box-footer">
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+            </form>
+          </div>
+          <!-- /.box -->
+
+
+        </div>
+      </div>
+      <!-- /.row -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+</div>
+<!-- ./wrapper -->
+
+</body>
+
+<script>
+function fileSelected() {
+  var file = document.getElementById('fileToUpload').files[0];
+  if (file) {
+    var fileSize = 0;
+    if (file.size > 1024 * 1024)
+      fileSize = (Math.round(file.size * 100 / (1024 * 1024)) / 100).toString() + 'MB';
+    else
+      fileSize = (Math.round(file.size * 100 / 1024) / 100).toString() + 'KB';
+
+    document.getElementById('fileName').innerHTML = 'Name: ' + file.name;
+    document.getElementById('fileSize').innerHTML = 'Size: ' + fileSize;
+    document.getElementById('fileType').innerHTML = 'Type: ' + file.type;
+  }
+}
+
+function myStart(){
+
+        $.ajax({
+
+                type: "POST",
+                url: "/admin/CALLBACK",
+                async:false,
+                data:{'_':new Date().getTime(),'csrfmiddlewaretoken':$('input[name=\'csrfmiddlewaretoken\']').val()},
+                success: function(data){
+                        var ONCOUNT = data.replace(/(\d+),.*/,'$1')
+                        var betadata = data.replace(/(\d+),(\d+),.*/,'$2')
+                        var prddata = data.replace(/(\d+),(\d+),(\d+),.*/,'$3')
+                        var SUMMER = data.replace(/(\d+),(\d+),(\d+),(.*)/,'$4')
+                        var data = eval(SUMMER);
+                        var i = 1;
+                        document.getElementById('betacount').innerHTML = betadata;
+                        document.getElementById('prdcount').innerHTML = prddata;
+                        document.getElementById('ONCOUNT').innerHTML = ONCOUNT;
+                        for(var o in data){
+                                eval(data[o].name+i+" = 0;" );
+                                var i=i + 1;
+                        }
+                }
+        });
+
+}
+
+
+
+</script>
+</html>
+{% endblock %}

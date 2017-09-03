@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+   <head>
+       <meta charset="utf-8">
+   </head>
+   <body style="height: 100%; margin: 0;zoom:100%">
+       <div id="container" style="height: 100%"></div>
+       <script type="text/javascript" src="echarts/echarts-all-3.js"></script>
+       <script type="text/javascript" src="echarts/dataTool.min.js"></script>
+       <script type="text/javascript" src="echarts/china.js"></script>
+       <script type="text/javascript" src="echarts/world.js"></script>
+       <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
+       <script type="text/javascript" src="echarts/bmap.min.js"></script>
+       <script type="text/javascript">
+var dom = document.getElementById("container");
+var myChart = echarts.init(dom);
+var app = {};
+option = null;
+option = {
+    title: {
+        text: '{item}'
+    },
+    tooltip: {
+        trigger: 'axis'
+    },
+    legend: {
+        data:['CONCURRENCY','USERIO','SYSTEMIO','ADMINSTRATIVE','OTHER','SCHEDULER','CONFIGURATION','CLUSTERS','APPLICATION','QUEUEING','COMMITS','LOAD']
+    },
+    grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+    },
+    toolbox: {
+        feature: {
+            saveAsImage: {}
+        }
+    },
+    xAxis: {
+        type: 'category',
+        boundaryGap: false,
+	data: [{TIME}]
+    },
+    yAxis: {
+        type: 'value'
+    },
+    series: [
+        {
+            name:'CONCURRENCY',
+            type:'line',
+            data:[{CONCURRENCY}]
+        },
+        {
+            name:'USERIO',
+            type:'line',
+            data:[{USERIO}]
+        },
+        {
+            name:'SYSTEMIO',
+            type:'line',
+            data:[{SYSTEMIO}]
+        },
+        {
+            name:'ADMINSTRATIVE',
+            type:'line',
+            data:[{ADMINSTRATIVE}]
+        },
+        {
+            name:'OTHER',
+            type:'line',
+            data:[{OTHER}]
+        },
+        {
+            name:'SCHEDULER',
+            type:'line',
+            data:[{SCHEDULER}]
+        },
+        {
+            name:'CONFIGURATION',
+            type:'line',
+            data:[{CONFIGURATION}]
+        },
+        {
+            name:'CLUSTERS',
+            type:'line',
+            data:[{CLUSTERS}]
+        },
+        {
+            name:'APPLICATION',
+            type:'line',
+            data:[{APPLICATION}]
+        },
+        {
+            name:'QUEUEING',
+            type:'line',
+            data:[{QUEUEING}]
+        },
+        {
+            name:'COMMITS',
+            type:'line',
+            data:[{COMMITS}]
+        },
+        {
+            name:'LOAD',
+            type:'line',
+            data:[{LOAD}]
+        }
+    ]
+};
+;
+if (option && typeof option === "object") {
+    myChart.setOption(option, true);
+}
+       </script>
+   </body>
+</html>

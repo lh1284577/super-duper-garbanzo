@@ -1,0 +1,98 @@
+<body>
+<style type="text/css">
+
+
+
+* {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+
+body {
+	background: #fff;
+	color: #333;
+	font-family: "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+	font-size: 0.9em;
+}
+
+#container {
+	width: 900px;
+	margin: 50px auto;
+}
+
+
+#chart_reqs {
+	display: block;
+	margin: 0 0 50px 0;
+	float: left;
+	cursor: pointer;
+}
+
+#chartData_reqs {
+	width: 200px;
+	margin: 0 40px 0 0;
+	float: right;
+	border-collapse: collapse;
+	box-shadow: 0 0 1em rgba(0, 0, 0, 0.5);
+	-moz-box-shadow: 0 0 1em rgba(0, 0, 0, 0.5);
+	-webkit-box-shadow: 0 0 1em rgba(0, 0, 0, 0.5);
+	background-position: 0 -100px;
+}
+
+#chartData_reqs th, #chartData_reqs td {
+	padding: 0.5em;
+	border: 1px dotted #666;
+	text-align: left;
+}
+
+#chartData_reqs th {
+	border-bottom: 2px solid #333;
+	text-transform: uppercase;
+}
+
+#chartData_reqs td {
+	cursor: pointer;
+}
+
+#chartData_reqs td.highlight {
+	background: #e8e8e8;
+}
+
+#chartData_reqs tr:hover td {
+	background: #f0f0f0;
+}
+
+</style>
+
+<script src="js/jquery.min.js"></script>
+
+<script type="text/javascript" src="js/pieChart_reqs.js"></script>
+	<div id="container">
+	
+		<canvas id="chart_reqs" width="500" height="400"></canvas>
+		<table id="chartData_reqs">
+			<tr>
+				<th>数据库</th><th>百分比</th>
+			</tr>
+			<tr style="color:#0DA068">
+				<td>postmall1</td><td id=reqs_postmall1>{{ITEM.IOPS.postmall1}}</td>
+			</tr>
+			<tr style="color:#194E9C">
+				<td>postmall2</td><td id=reqs_postmall2>{{ITEM.IOPS.postmall2}}</td>
+			</tr>
+			<tr style="color:#ED9C13">
+				<td>ulecard1</td><td id=reqs_ulecard1>{{ITEM.IOPS.ulecard1}}</td>
+			</tr>
+			<tr style="color:#ED5713">
+				<td>ulecard2</td><td id=reqs_ulecard2>{{ITEM.IOPS.ulecard2}}</td>
+			</tr>
+			<tr style="color:#057249">
+				<td >dwdb1</td><td id=reqs_dwdb1>{{ITEM.IOPS.rac6db1}}</td>
+			</tr>
+			<tr style="color:#FF0000">
+				<td >dwdb2</td><td id=reqs_dwdb2>{{ITEM.IOPS.rac6db2}}</td>
+			</tr>
+		</table>
+	</div>
+</body>
