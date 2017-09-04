@@ -83,7 +83,7 @@ DATABASES = {
         'NAME': 'yunwei',                      # Or path to database file if using sqlite3.
         'USER': 'root',                      # Not used with sqlite3.
         'PASSWORD': 'root',                  # Not used with sqlite3.
-        'HOST': 'db',                      # Set to empty string for localhost. Not used with sqlite3.
+        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
 }
@@ -143,7 +143,7 @@ TEMPLATE_LOADERS = (
 )
 
 TEMPLATE_DIRS = (
-    '/data/mysite/baiwei/yunwei/templates',
+    '/temp/super-duper-garbanzo/mysite/baiwei/yunwei/templates',
 )
 
 STATIC_URL = '/static/'

@@ -25,49 +25,45 @@ from django.views.generic import View
 #api认证
 from yunwei.permissions import IsOwnerOrReadOnly
 from rest_framework import permissions
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic.list import ListView
 
-@yunwei.auth.login_check()
-def blog(req):
-   username = req.session['username']
-   LIST = BLOG.objects.order_by('-id').all()
-   TOUXIANG = Profile.objects.all()
-   message_list = MESSAGE.objects.order_by('-blogid').all()
-   id_list = BLOG.objects.all().values('id').order_by('-id')
-   list = []
-   COUNT = {}
-   for i in id_list:
-       list.append(i['id'])
-   for i in list:
-       COUNT[i]=(MESSAGE.objects.filter(blogid=i).count())
 
-   return render_to_response('adminlte/blog.html',{'username':username,'LIST':LIST,'message_list':message_list,'COUNT':COUNT,'TOUXIANG':TOUXIANG,'CONTENT':'hide'},context_instance=RequestContext(req,processors=[touxiang]))
+
+class BlogListView(LoginRequiredMixin,ListView):
+        template_name = "adminlte/blog.html"
+        model = BLOG
+        def get_context_data(self, **kwargs):
+                context = super(BlogListView, self).get_context_data(**kwargs)
+                #context['username'] = self.request.user
+                LIST = BLOG.objects.order_by('-id').all()
+                TOUXIANG = Profile.objects.all()
+                message_list = MESSAGE.objects.order_by('-blogid').all()
+                id_list = BLOG.objects.all().values('id').order_by('-id')
+                list = []
+                COUNT = {}
+                for i in id_list:
+                    list.append(i['id'])
+                for i in list:
+                    COUNT[i]=(MESSAGE.objects.filter(blogid=i).count())
+                context.update({
+                     'LIST':LIST,
+                     'message_list':message_list,
+                     'COUNT':COUNT,
+                     'TOUXIANG':TOUXIANG,
+                     'CONTENT':'hide',
+                     'username':self.request.user
+                })
+                return context
+
+
 
 
 class BlogAddView(TemplateView):
- 
-    template_name = 'adminlte/xheditor-1.2.2/add_blog.html'
-    model = BLOG
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,
-                          IsOwnerOrReadOnly,)
-    #def post(self, req, *args, **kwargs):
-    #    context = self.get_context_data(**kwargs)                                                                                                        
-    #    username = req.session['username']
-    #    context['username'] = username
-    #    return self.render_to_response(context)
-    def get_context_data(self, **kwargs):
-    	context = super(BlogAddView, self).get_context_data(**kwargs)
-	context['username'] =  self.request.user
-    	return context
+        template_name = "adminlte/xheditor-1.2.2/add_blog.html"
+        def get(self,req, *args, **kwargs):
+                return super(BlogAddView, self).get(req, *args, **kwargs)
 
-
-
-@yunwei.auth.login_check()
-def addblog(req):
-    username = req.session['username']
-    if req.GET:
-	return HttpResponseRedirect('/yunwei/blog')
-    return render_to_response('adminlte/xheditor-1.2.2/add_blog.html',{'username':username},context_instance=RequestContext(req,processors=[touxiang]))
 
 def add(req):
     username = req.session['username']

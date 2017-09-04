@@ -22,11 +22,10 @@ urlpatterns = patterns('',
 
 #blog
     url(r'^addblog', blog.BlogAddView.as_view()),
-    #url(r'^addblog',blog.addblog),
     url(r'^delblog',blog.delblog),
     url(r'^contentselblog',blog.contentselblog),
     url(r'^contentblog',blog.contentblog),
-    url(r'^blog',blog.blog),
+    url(r'^blog',blog.BlogListView.as_view()),
     url(r'^edit',blog.edit),
     url(r'^add',blog.add),
 
@@ -40,5 +39,5 @@ urlpatterns = patterns('',
     url(r'^regist',views.regist,name = 'regist'),
     url(r'^logout_view',views.logout_view),
     url(r'^_(?P<id>[0-9,a-z,A-Z,_,.,\,]+)',views.charts),
-    url( r'^(.*)$', 'django.views.static.serve',{ 'document_root': '/data/mysite/baiwei/yunwei/templates/adminlte' }),
+    url( r'^(.*)$', 'django.views.static.serve',{ 'document_root': '/temp/super-duper-garbanzo/mysite/baiwei/yunwei/templates/adminlte' }),
 )+static(settings.STATIC_URL)
