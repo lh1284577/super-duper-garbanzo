@@ -39,5 +39,6 @@ urlpatterns = patterns('',
     url(r'^regist',views.regist,name = 'regist'),
     url(r'^logout_view',views.logout_view),
     url(r'^_(?P<id>[0-9,a-z,A-Z,_,.,\,]+)',views.charts),
-    url( r'^(.*)$', 'django.views.static.serve',{ 'document_root': '/temp/super-duper-garbanzo/mysite/baiwei/yunwei/templates/adminlte' }),
+#    url( r'^(.*)$', 'django.views.static.serve',{ 'document_root': '/temp/super-duper-garbanzo/mysite/baiwei/yunwei/templates/adminlte' }),
+    url( r'^(.*)$', 'django.views.static.serve',{ 'document_root': '/data/mysite/baiwei/yunwei/templates/adminlte' }),
 )+static(settings.STATIC_URL)

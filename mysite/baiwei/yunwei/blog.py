@@ -68,7 +68,7 @@ class BlogAddView(TemplateView):
 def add(req):
     username = req.session['username']
     uf = UserForm(req.GET)
-    content = req.POST.get('preview')
+    content = req.POST.get('content')
     title = req.POST.get('title')
     new = BLOG(username=username,title=title,content=content)
     new.save()

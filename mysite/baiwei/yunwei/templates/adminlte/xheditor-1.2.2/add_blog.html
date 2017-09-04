@@ -88,7 +88,8 @@ body{
 	</div>
 
 
-	<form name=form1>
+	<!-- <form name=form1 > -->
+	 <form method = 'post' action='/yunwei/add/' onsubmit="return check()">
 	{% csrf_token %}
 	    <p>标题<input  id=title size=50 name=title type=text></p>
 	    <a></a>
@@ -106,38 +107,38 @@ body{
 <script src="//www.w3school.com.cn/jquery/jquery.js"></script>
 
 <script type="text/javascript">
-
-
-        $('.ADDBLOG').click(function(){
-
-
-                if(document.getElementById("title").value == "" || document.getElementById("content").value == ""){
-                        $('#title,#content').addClass('show');
-                        return false;
-                }else{
-                        $('#title,#content').removeClass('show');
-                };
-
-
-                var username=form1.username.value
-                var title=form1.title.value
-                var content=form1.content.value
-
-                $.ajax({
-                        url:'/yunwei/api/BLOG/',
-                        data:{'_':new Date().getTime(),'csrfmiddlewaretoken':'{{ request.COOKIES.csrftoken }}','username':username,'title':title,'content':content},
-                        type:'POST',
-                        async:false,
-                        success:function(data){
-                        },
-                        error:function(e,m,t){
-                        }
-
-                })
-
-        })
-
-
+//
+//
+//        $('.ADDBLOG').click(function(){
+//
+//
+//                if(document.getElementById("title").value == "" || document.getElementById("content").value == ""){
+//                        $('#title,#content').addClass('show');
+//                        return false;
+//                }else{
+//                        $('#title,#content').removeClass('show');
+//                };
+//
+//
+//                var username=form1.username.value
+//                var title=form1.title.value
+//                var content=form1.content.value
+//
+//                $.ajax({
+//                        url:'/yunwei/api/BLOG/',
+//                        data:{'_':new Date().getTime(),'csrfmiddlewaretoken':'{{ request.COOKIES.csrftoken }}','username':username,'title':title,'content':content},
+//                        type:'POST',
+//                        async:false,
+//                        success:function(data){
+//                        },
+//                        error:function(e,m,t){
+//                        }
+//
+//                })
+//
+//        })
+//
+//
 </script>
 
 </html>
